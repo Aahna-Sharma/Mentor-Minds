@@ -1,8 +1,8 @@
 html,
 body {
-   background-color: black;
+  background-color: rgb(27, 27, 27);
   color: white;
-  
+
   flex-direction: column;
   height: 100vh;
   margin: 0;
@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .close {
   position: absolute;
   top: 20px;
@@ -29,8 +30,10 @@ body {
 .closebtn:hover {
   opacity: 0.7;
 }
+
 .container {
-  flex: 1; /* Expands main content to push footer down */
+  flex: 1;
+  /* Expands main content to push footer down */
   text-align: center;
   margin-top: 50px;
   width: 100%;
@@ -39,14 +42,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .title {
   font-size: 36px;
   font-weight: bold;
 }
+
 .link {
   color: #0248f9;
   text-decoration: none;
 }
+
 .button {
   display: flex;
   align-items: center;
@@ -65,7 +71,7 @@ body {
   color: black;
 }
 
-.google-btn:hover{
+.google-btn:hover {
   background-color: rgb(202, 202, 202);
 }
 
@@ -74,8 +80,8 @@ body {
   color: white;
 }
 
-.facebook-btn:hover{
-  background-color:  #1661c4;
+.facebook-btn:hover {
+  background-color: #1661c4;
 }
 
 .email-btn {
@@ -84,7 +90,7 @@ body {
   border: 1px solid white;
 }
 
-.email-btn:hover{
+.email-btn:hover {
   background-color: rgb(26, 25, 25)
 }
 
@@ -93,6 +99,7 @@ body {
   height: 20px;
   margin-right: 10px;
 }
+
 .footer {
   background-color: #000;
   color: #fff;
@@ -101,7 +108,8 @@ body {
   border-bottom: 2px solid #fff;
   width: 100%;
   padding: 20px 0;
-  position: relative; /* Ensures proper positioning */
+  position: relative;
+  /* Ensures proper positioning */
   bottom: 0;
   padding-bottom: 25px;
   font-size: 12px;
@@ -109,7 +117,7 @@ body {
   font-family: "Space Grotesk", sans-serif;
   padding-left: 15px;
   padding-right: 15px;
- 
+
 }
 
 .footer-content {
@@ -135,15 +143,19 @@ body {
   font-size: 14px;
   line-height: 1.5;
   font-family: "Space Grotesk", sans-serif;
-  color: white; /* Text remains white */
-  text-decoration: none; /* No underline */
+  color: white;
+  /* Text remains white */
+  text-decoration: none;
+  /* No underline */
 }
 
 .contact-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align content to the left */
-  gap: 5px; /* Space between email and social icons */
+  align-items: flex-start;
+  /* Align content to the left */
+  gap: 5px;
+  /* Space between email and social icons */
 }
 
 #Foranyqueries {

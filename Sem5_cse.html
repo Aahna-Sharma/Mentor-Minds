@@ -56,68 +56,152 @@
     </div>
   </div>
   <div class="nav-menu">
-      <a href="CSE.html">CSE</a>
-      <a href="IT.html">IT</a>
-      <a href="BCA.html">BCA</a>
-      <a href="MCA.html">MCA</a>
-      <a href="Pyqs.html">Question Papers</a>
-      <a href="Practicals.html">Practicals</a>
-    </div>
+    <a id="cse" href="CSE.html">CSE</a>
+    <a id="it" href="IT.html">IT</a>
+    <a id="bca" href="BCA.html">BCA</a>
+    <a id="mca" href="MCA.html">MCA</a>
+    <a id="pyqs" href="Pyqs.html">Question Papers</a>
+    <a id="prac" href="Practicals.html">Practicals</a>
+  </div>
   <div class="sem5_csecontent">
     <button class="back-button" type="button" onclick="goBack()">
-        <img src="https://img.icons8.com/?size=100&id=40217&format=png" alt="Back">
+      <img src="https://img.icons8.com/?size=100&id=40217&format=png" alt="Back">
     </button>
-    
+
     <script>
-        function goBack() {
-            window.history.back();
-        }
+      function goBack() {
+        window.history.back();
+      }
     </script>
     <h2>SEMESTER 5</h2>
     <div class="content">
       <p>
-        Welcome to The Mentor Minds, your trusted platform for comprehensive
-        study resources! Here, you will find expertly curated notes, detailed
-        question papers, and insightful tutorials for your Semester 5 subjects
-        in Computer Science Engineering. Our goal is to empower you with the
-        knowledge and resources you need to excel in your academics.
+        Welcome to The Mentor Minds — your reliable academic hub at Sardar Beant Singh State University (SBSSU)! Explore
+        expertly crafted notes, past question papers, and insightful tutorials for Semester 5 of Computer Science
+        Engineering. We're here to support your journey with the resources you need to excel and grow with confidence.
+
+
       </p>
     </div>
   </div>
-  <div class="card-container">
-        <div class="card" onclick="location.href='Javacse.html'">
-            <h3>Programming in JAVA</h3>
-      <button class="btn" type="button" onclick="window.location.href='Javacse.html'">
-        Read More
-      </button>
-    </div>
-     <div class="card" onclick="location.href='DBMScse.html'">
-            <h3>Database Management Systems</h3>
-      <button class="btn" type="button" onclick="window.location.href='DBMScse.html'">
-        Read More
-      </button>
-    </div>
-    <div class="card" onclick="location.href='FLATcse.html'">
-            <h3>Formal Language & Automata Theory</h3>
-      <button class="btn" type="button" onclick="window.location.href='FLATcse.html'">
-        Read More
-      </button>
-    </div>
-    <div class="card" onclick="location.href='CNcse.html'">
-            <h3>Computer Networks</h3>
-      <button class="btn" type="button" onclick="window.location.href='CNcse.html'">
-        Read More
-      </button>
-    </div>
-    <div class="card" onclick="location.href='ETCcse.html'">
-            <h3>Effective Technical Communication</h3>
-      <button class="btn" type="button" onclick="window.location.href='ETCcse.html'">
-        Read More
-      </button>
+  <div class="con">
+    <h1>Subjects</h1>
+    <div class="container">
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" alt="Java Icon">
+        </div>
+        <div class="title1">Programming in JAVA</div>
+        <div class="description1">Object-oriented programming, libraries, and app development.</div>
+        <div class="menu">
+          <div class="option" onclick="location.href='Javacsetut.html'">Tutorial</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1dxS4Jb9plRE-PxifoYk70ejbtiVMULnD/view?usp=sharing')">
+            Question Papers</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1t7lxW7IKeGdTQaJ4dt_0TDDOZmumFSpD/view?usp=sharing')">
+            Practicals</div>
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/4299/4299956.png" alt="DBMS Icon">
+        </div>
+        <div class="title1">Database Management Systems</div>
+        <div class="description1">Data models, SQL, normalization, and transaction management.</div>
+        <div class="menu">
+          <div class="option">Tutorial</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1uyNxUT1rg9e9YQ02CLOCN-JPEY81rrV-/view?usp=sharing')">
+            Question Papers</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/17chBuiTPDzC5zaK1oUxW5_eINtTkVukg/view?usp=sharing')">
+            Practicals</div>
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="FLAT Icon">
+        </div>
+        <div class="title1">Formal Language & Automata Theory</div>
+        <div class="description1">Grammars, automata, Turing machines, and computation theory.</div>
+        <div class="menu">
+          <div class="option">Tutorial</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1PVqhqHANaQ1A42hpcSShTqQmrs9BV2f_/view?usp=sharing')">
+            Question Papers</div>
+
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/10071/10071236.png" alt="Networks Icon">
+        </div>
+        <div class="title1">Computer Networks</div>
+        <div class="description1">Networking layers, protocols, IP addressing, and routing.</div>
+        <div class="menu">
+          <div class="option">Tutorial</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1jDErl2LEyBtxPueVmq-paVH_5yyH6SqP/view?usp=sharing')">
+            Question Papers</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/1k7ufkGt7Ya7hf6yz0FCO77KymG0Eny1H/view?usp=sharing')">
+            Practicals</div>
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/4203/4203701.png" alt="Communication Icon">
+        </div>
+        <div class="title1">Effective Technical Communication</div>
+        <div class="description1">Professional writing, reports, and oral communication skills.</div>
+        <div class="menu">
+          <div class="option">Tutorial</div>
+          <div class="option"
+            onclick="window.open('https://drive.google.com/file/d/11yTmErML6Lwh3PC-D4F306L1YPz9dV8t/view?usp=sharing')">
+            Question Papers</div>
+
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openMenu(this)">
+        <div class="icon"><img src="https://cdn-icons-png.flaticon.com/128/2920/2920249.png" alt="Web Tech Icon"></div>
+        <div class="title1">Elective I: Web Technologies</div>
+        <div class="description1">Making own Web page, host own web site, protocols involved in internet
+          technology.</div>
+        <div class="menu">
+          <div class="option">Tutorial</div>
+          <div class="option">Question Papers</div>
+
+          <div class="option">Important Questions</div>
+          <div class="close-btn" onclick="closeMenu(event)">✖</div>
+        </div>
+      </div>
     </div>
   </div>
+  <script>
+    function openMenu(card) {
+      card.classList.add("hide");
+    }
+
+    function closeMenu(e) {
+      e.stopPropagation();
+      const card = e.target.closest(".card");
+      card.classList.remove("hide");
+    }
+  </script>
+
   <div class="table">
-      <table>
+    <table>
       <tr>
         <th>Subject</th>
         <th>Type</th>
@@ -128,7 +212,7 @@
       </tr>
       <tr>
 
-      <tr onclick="window.location.href='Javacse.html'" style="cursor: pointer;">
+      <tr onclick="window.location.href='Javacsetut.html'" style="cursor: pointer;">
         <td>Programming in JAVA</td>
         <td>Engineering Science Course</td>
         <td>3 : 0 : 0</td>
@@ -137,7 +221,7 @@
         <td>3</td>
       </tr>
       </button>
-      <tr onclick="window.location.href='DBMScse.html'" style="cursor: pointer;">
+      <tr onclick="window.location.href='DBMScsetut.html'" style="cursor: pointer;">
         <td>Database Management Systems</td>
         <td>Professional Core Course</td>
         <td>3 : 0 : 0</td>
@@ -145,7 +229,7 @@
         <td>100</td>
         <td>3</td>
       </tr>
-      <tr onclick="window.location.href='FLATcse.html'" style="cursor: pointer;">
+      <tr onclick="window.location.href='FLATcsetut.html'" style="cursor: pointer;">
         <td>Formal Language & Automata Theory</td>
         <td>Professional Core Course</td>
         <td>3 : 0 : 0</td>
@@ -153,7 +237,7 @@
         <td>100</td>
         <td>3</td>
       </tr>
-      <tr onclick="window.location.href='CNcse.html'" style="cursor: pointer;">
+      <tr onclick="window.location.href='CNcsetut.html'" style="cursor: pointer;">
         <td>Computer Networks</td>
         <td>Professional Core Course</td>
         <td>3 : 0 : 0</td>
@@ -161,7 +245,7 @@
         <td>100</td>
         <td>3</td>
       </tr>
-      <tr onclick="window.location.href='ETCcse.html'" style="cursor: pointer;">
+      <tr onclick="window.location.href='ETCcsetut.html'" style="cursor: pointer;">
         <td>Effective Technical Communication</td>
         <td>Humanities & Social Sciences including Management Course</td>
         <td>3 : 0 : 0</td>
@@ -169,7 +253,7 @@
         <td>100</td>
         <td>3</td>
       </tr>
-      <tr>
+      <tr onclick="window.location.href='Webtechcsetut.html'" style="cursor: pointer;">
         <td>Elective-I</td>
         <td>Professional Elective</td>
         <td>3 : 0 : 0</td>
@@ -243,7 +327,7 @@
         <p class="footer-description">
           Thanks for choosing The Mentor Minds. We're committed to providing
           quality education and support to help you succeed. Contact us to
-          learn more.
+          learn more.<br>© <i>2025 Aahna Sharma & Dhruv Dutt Dhawan – Founders</i>
         </p>
       </div>
 

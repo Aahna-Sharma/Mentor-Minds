@@ -20,19 +20,25 @@ body {
 
 .center-content {
   display: flex;
-  justify-content: center; /* Center the logo and text */
-  align-items: center; /* Ensure vertical centering */
-  flex-grow: 1; /* Take available space to stay centered */
-  position: absolute; /* Allows centering without flex tricks */
+  justify-content: center;
+  /* Center the logo and text */
+  align-items: center;
+  /* Ensure vertical centering */
+  flex-grow: 1;
+  /* Take available space to stay centered */
+  position: absolute;
+  /* Allows centering without flex tricks */
   left: 50%;
-  transform: translateX(-50%); /* Perfect horizontal centering */
+  transform: translateX(-50%);
+  /* Perfect horizontal centering */
 }
 
 .header-right {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: auto; /* Pushes the search bar to the far right */
+  margin-left: auto;
+  /* Pushes the search bar to the far right */
 }
 
 /* Media Query for Small Screens */
@@ -60,10 +66,12 @@ body {
   text-decoration: none;
   color: white;
 }
+
 .logo {
   display: flex;
   align-items: center;
 }
+
 .logo svg {
   height: 40px;
   width: 40px;
@@ -73,11 +81,14 @@ body {
 .search-bar {
   display: flex;
   align-items: center;
-  background-color: #333; /* Dark background */
-  border: 1px solid #fff; /* White border */
+  background-color: #333;
+  /* Dark background */
+  border: 1px solid #fff;
+  /* White border */
   border-radius: 0px;
   padding: 1px 1px;
-  width: 100%; /* Ensures it expands properly */
+  width: 100%;
+  /* Ensures it expands properly */
 }
 
 .search-bar:hover {
@@ -105,14 +116,19 @@ input[type="text"] {
   background: transparent;
   border: none;
   outline: none;
-  color: #fff; /* White text */
-  flex: 1; /* Takes remaining space */
-  padding-left: 10px; /* Spacing between icon and text */
-  font-size: 16px; /* Matches the reference style */
+  color: #fff;
+  /* White text */
+  flex: 1;
+  /* Takes remaining space */
+  padding-left: 10px;
+  /* Spacing between icon and text */
+  font-size: 16px;
+  /* Matches the reference style */
 }
 
 input::placeholder {
-  color: #bbb; /* Subtle placeholder text */
+  color: #bbb;
+  /* Subtle placeholder text */
 }
 
 .login {
@@ -124,24 +140,32 @@ input::placeholder {
 }
 
 .login-link {
-  display: inline-flex; /* Ensures text and icon stay in one line */
-  align-items: center; /* Centers items vertically */
-  text-decoration: none; /* Removes underline */
-  color: #a17df5; /* Purple color */
+  display: inline-flex;
+  /* Ensures text and icon stay in one line */
+  align-items: center;
+  /* Centers items vertically */
+  text-decoration: none;
+  /* Removes underline */
+  color: #a17df5;
+  /* Purple color */
   font-weight: bold;
   font-family: "Times New Roman", Times, serif;
   font-size: 14px;
-  white-space: nowrap; /* Prevents text from wrapping */
-  gap: 8px; /* Adds spacing between icon and text */
+  white-space: nowrap;
+  /* Prevents text from wrapping */
+  gap: 8px;
+  /* Adds spacing between icon and text */
 }
 
 .login-link svg {
-  width: 24px; /* Ensures icon size is appropriate */
+  width: 24px;
+  /* Ensures icon size is appropriate */
   height: 24px;
 }
 
 .login-link:hover {
-  color: #b19fff; /* Slightly brighter purple on hover for effect */
+  color: #b19fff;
+  /* Slightly brighter purple on hover for effect */
 }
 
 .nav-menu {
@@ -159,6 +183,7 @@ input::placeholder {
   color: #fff;
   border: 1px solid #fff;
 }
+
 .nav-menu a:hover {
   background-color: #a17df5;
   color: #000;
@@ -203,15 +228,19 @@ input::placeholder {
   font-size: 14px;
   line-height: 1.5;
   font-family: "Space Grotesk", sans-serif;
-  color: white; /* Text remains white */
-  text-decoration: none; /* No underline */
+  color: white;
+  /* Text remains white */
+  text-decoration: none;
+  /* No underline */
 }
 
 .contact-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align content to the left */
-  gap: 5px; /* Space between email and social icons */
+  align-items: flex-start;
+  /* Align content to the left */
+  gap: 5px;
+  /* Space between email and social icons */
 }
 
 #Foranyqueries {
@@ -268,6 +297,7 @@ input::placeholder {
   transform: scale(1.1);
   opacity: 0.8;
 }
+
 .back-button {
   position: absolute;
   left: 2px;
@@ -305,15 +335,18 @@ input::placeholder {
   width: 100%;
   margin: auto;
   text-align: center;
-  height: 90%; /* Increased height for larger div */
+  height: 90%;
+  /* Increased height for larger div */
   background-color: #101010;
   padding-bottom: 40px;
 }
 
 .intro-section h1 {
-  font-size: 2.6rem; /* Maintain large size */
+  font-size: 2.6rem;
+  /* Maintain large size */
   font-weight: bold;
-  margin-bottom: 10px; /* Reduce space under the heading */
+  margin-bottom: 10px;
+  /* Reduce space under the heading */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -337,6 +370,7 @@ input::placeholder {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -345,7 +379,8 @@ input::placeholder {
 
 
 .highlight {
-  color: #57a9fb; /* Gold for important text */
+  color: #57a9fb;
+  /* Gold for important text */
   font-weight: bold;
 }
 
@@ -357,12 +392,12 @@ input::placeholder {
   letter-spacing: 0.5px;
 }
 
-#headingcarousal{
+#headingcarousal {
   text-align: center;
   justify-content: center;
   display: flex;
   color: aliceblue;
-  font-family: "Space Grotesk",sans-serif;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .carousel-container {
@@ -375,6 +410,7 @@ input::placeholder {
   padding-bottom: 40px;
   display: block;
 }
+
 .carousel {
   display: flex;
   gap: 15px;
@@ -384,9 +420,11 @@ input::placeholder {
   scrollbar-width: none;
   padding: 10px 0;
 }
+
 .carousel::-webkit-scrollbar {
   display: none;
 }
+
 .category-card {
   background: #eef2f6;
   border-radius: 10px;
@@ -405,7 +443,8 @@ input::placeholder {
   padding-top: 100px;
   cursor: pointer;
 }
-.category-card img {
+
+.category-card svg {
   width: 100%;
   height: 160px;
   object-fit: cover;
@@ -415,6 +454,7 @@ input::placeholder {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
 .category-card h3 {
   margin: 70px 8px 0px;
   font-size: 16px;
@@ -425,11 +465,12 @@ input::placeholder {
   color: #000;
   font-family: "Space Grotesk", sans-serif;
 }
+
 .category-card p {
   position: absolute;
   top: 205px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 13px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
