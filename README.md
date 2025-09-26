@@ -23,7 +23,7 @@ Google Drive Integration
 
 🛠️ Tech Stack
 
-Frontend: HTML, CSS, JavaScript
-Storage/Database: Google Drive
-Authentication: Google / Facebook / Email-based (TBD)
-Hosting: TBD
+- Frontend: HTML, CSS, JavaScript
+- Storage/Database: Google Drive
+- Authentication: Google / Facebook / Email-based (TBD)
+- Hosting: TBD
