@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #130820, #000);
+    color: #fff;
+}
+
+.signup-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.login-container {
+    background: #111;
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+@media (hover:hover) {
+    .login-container:hover {
+        box-shadow: 0 0 30px 15px #a17df5d0;
+        transform: scale(1.03);
+    }
+}
+
+.login-container h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: #a17df5;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+    color: #ccc;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #1c1c1c;
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.input-group input:focus {
+    border: 1px solid #a17df5;
+    outline: none;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #a17df5, #785bba);
+    border: none;
+    border-radius: 25px;
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px #a17df5(255, 200, 0, 0.4);
+    transition: transform 0.2s, background 0.3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(90deg, #381687, #a17df5);
+    color: #fff;
+}
+
+.signup-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.signup-text a {
+    color: #a17df5;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.signup-text a:hover {
+    color: #a17df5;
+    text-decoration: underline;
+}
+
+.social-signup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+}
+
+
+
+.google-btn,
+.facebook-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.google-btn {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #ddd;
+}
+
+.facebook-btn {
+    background: #1671e7;
+    color: #fff;
+}
+
+.google-btn:hover {
+    background-color: #ababab;
+}
+
+.facebook-btn:hover {
+    background-color: #1350a0;
+}
+
+
+
+.footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    border-top: 2px groove #fff;
+    border-bottom: 2px solid #fff;
+    width: 100%;
+    padding: 20px 0;
+    position: relative;
+    /* Ensures proper positioning */
+    bottom: 0;
+    padding-bottom: 25px;
+    font-size: 12px;
+    margin-top: 20px;
+    font-family: "Space Grotesk", sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo-section {
+    max-width: 400px;
+    text-align: center;
+}
+
+.footer-logo svg {
+    width: 400px;
+    height: auto;
+    margin-bottom: 0px;
+}
+
+.footer-description {
+    margin-top: 0px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: "Space Grotesk", sans-serif;
+    color: white;
+    /* Text remains white */
+    text-decoration: none;
+    /* No underline */
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Align content to the left */
+    gap: 5px;
+    /* Space between email and social icons */
+}
+
+#Foranyqueries {
+    font-size: 22px;
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-section h3 {
+    margin-bottom: 0px;
+}
+
+.email {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    font-size: 16px;
+}
+
+.email img {
+    width: 20px;
+    height: 20px;
+    filter: invert(100%);
+    padding-right: 5px;
+    padding-top: 3px;
+}
+
+.email img:hover {
+    opacity: 70%;
+}
+
+.email a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-icons a img {
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    border-radius: 50%;
+    border-width: 1px;
+    padding: 1.5px;
+    transition: transform 0.2s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.back-button {
+    position: absolute;
+    left: 2px;
+    top: 27px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover {
+    background-color: transparent;
+}
+
+.back-button img {
+    width: 30px;
+    height: 30px;
+    filter: invert(1);
+}
+
+.back-button:hover {
+    opacity: 80%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 20px;
+    padding-right: 30px;
+}
+
+.closebtn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    opacity: 0.7;
+}
