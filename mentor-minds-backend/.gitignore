@@ -1,0 +1,3 @@
+# .gitignore (in mentor-minds-backend/)
+serviceAccountKey.json
+.env

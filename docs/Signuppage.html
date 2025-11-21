@@ -2,93 +2,99 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" href="favicon-32x32.png" sizes="16x16" />
     <link rel="icon" href="favicon-16x16.png" sizes="16x16" />
     <link rel="manifest" href="/site.webmanifest" />
-
-    <link rel="stylesheet" href="Signuppage.css">
+    <link rel="stylesheet" href="Signuppage.css" />
     <title>Signup Page</title>
-    <link rel="script" href="Loginpagescript.js">
 </head>
 
 <body>
+
     <div class="close">
-        <a href="index.html">
-            <button class="closebtn">✕</button>
-        </a>
+        <a href="index.html"><button class="closebtn">✕</button></a>
     </div>
+
     <button class="back-button" type="button" onclick="goBack()">
-        <img src="https://img.icons8.com/?size=100&id=40217&format=png" alt="Back">
+        <img src="https://img.icons8.com/?size=100&id=40217&format=png">
     </button>
+
     <script>
-        function goBack() {
-            window.history.back();
-        }
+        function goBack() { window.history.back(); }
     </script>
+
     <div class="signup-wrapper">
         <div class="login-container">
             <h2>Signup</h2>
-            <form action="http://localhost:3000/auth/signup" method="post" enctype="application/x-www-form-urlencoded">
-                <p id="error-message" style="color: red; font-weight: semibold;">
-                </p>
-                <br>
+
+            <!-- SIGNUP FORM (email & password only) -->
+            <form id="signupForm" autocomplete="on">
+
+                <p id="error-message" style="color: red; font-weight: semibold;"></p>
+
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
-                </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="example@gmail.com">
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="•••••••">
+                    <label for="su_name">Username</label>
+                    <input type="text" id="su_name" name="name" placeholder="Enter your username" required />
                 </div>
 
+                <div class="input-group">
+                    <label for="su_email">Email</label>
+                    <input type="email" id="su_email" name="email" placeholder="example@gmail.com" required />
+                </div>
 
-                <button type="submit" class="login-btn">Sign up</button>
+                <div class="input-group">
+                    <label for="su_password">Password</label>
+                    <input type="password" id="su_password" name="password" placeholder="••••••" required />
+                </div>
+
+                <button type="submit" class="login-btn">Sign Up</button>
+
                 <br><br>
-                <p>────────── or ──────────</p>
+                <p>────────── or sign up with ──────────</p>
                 <br>
-                <div class="social-signup">
-                    <button type="button" id="googleBtn" class="google-btn">
-                        <img src="https://www.gstatic.com/images/branding/product/2x/gsa_48dp.png" alt="Google"
-                            class="icon" />
-                        <p style="font-family: Arial, Helvetica, sans-serif; color:black; ">Sign up with Google</p>
-                    </button>
-                    <button type="button" id="facebookBtn" class="facebook-btn">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
-                            alt="Facebook" class="icon" />
-                        <p style="font-family: Arial, Helvetica, sans-serif; color:white;"> Sign up with Facebook</p>
-                    </button>
 
-                </div>
+                <!-- GOOGLE SIGNUP BUTTON -->
+                <button type="button" id="googleSignInBtn" class="google-btn">
+                    <img src="https://www.gstatic.com/images/branding/product/2x/gsa_48dp.png" class="icon" />
+                    <p>Continue with Google</p>
+                </button>
 
+                <!-- FACEBOOK SIGNUP BUTTON -->
+                <button type="button" id="facebookSignInBtn" class="facebook-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+                        class="icon" />
+                    <p style="color:white;">Continue with Facebook</p>
+                </button>
 
-                <p class="signup-text">Already have an account? <a href="Loginpage.html">Sign In</a></p>
             </form>
-
         </div>
+
         <div class="divider-line"></div>
     </div>
+
     <script>
         const params = new URLSearchParams(window.location.search);
         const error = params.get('error');
         if (error) {
             document.getElementById('error-message').innerText = decodeURIComponent(error);
-
-            // Remove error from URL without reloading
             const newURL = window.location.pathname;
             window.history.replaceState({}, document.title, newURL);
         }
-
     </script>
 
+    <!-- Firebase SDK (required for Google & Facebook auth) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+    <!-- YOUR AUTH LOGIC -->
+    <script src="auth.js"></script>
+    <script src="firebase-auth.js"></script>
 
 </body>
+
 <footer class="footer">
     <div class="footer-content">
         <div class="logo-section">

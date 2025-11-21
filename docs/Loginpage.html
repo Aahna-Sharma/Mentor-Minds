@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log In</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" href="favicon-32x32.png" sizes="16x16" />
@@ -19,14 +19,26 @@
       <button class="closebtn">✕</button>
     </a>
   </div>
+
   <div class="container">
     <div class="title">Log in</div>
+
+    <!-- user info (filled by auth.js) -->
+    <div style="margin:8px 0;">
+      <span id="userName" style="font-weight:600;"></span>
+      <button id="btnLogout" style="display:none; margin-left:8px;">Logout</button>
+    </div>
+
     <p>Not a member ?<a href="Signuppage.html" class="link" style="color: rgb(0, 115, 210);"> Sign up</a></p>
-    <button class="button google-btn">
+
+    <!-- GOOGLE: button has ID so firebase-auth.js can attach handler -->
+    <button id="googleSignInBtn" class="button google-btn" type="button">
       <img src="https://www.gstatic.com/images/branding/product/2x/gsa_48dp.png" alt="Google" class="icon">
       Log in with Google
     </button>
-    <button class="button facebook-btn">
+
+    <!-- FACEBOOK: button has ID so firebase-auth.js can attach handler -->
+    <button id="facebookSignInBtn" class="button facebook-btn" type="button">
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook"
         class="icon">
       Log in with Facebook
@@ -76,6 +88,40 @@
       </div>
     </div>
   </footer>
+  <!-- Firebase SDKs (required by firebase-auth.js) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  
+  <!-- Your frontend auth scripts (place these files in docs/) -->
+  <script src="auth.js"></script>
+  <script src="firebase-auth.js"></script>
+  
+  <!-- small fallback UI glue (optional) -->
+  <script>
+    // renderUserUI is provided by auth.js; it reads localStorage.mm_user
+    // If auth.js not yet loaded, wrap a short retry
+    function safeRender() {
+      if (typeof renderUserUI === 'function') {
+        renderUserUI();
+      } else {
+        setTimeout(safeRender, 100);
+      }
+    }
+    safeRender();
+
+    // auth.js attaches logout handler to #btnLogout when DOMContentLoaded,
+    // but in case you want a hook here, we ensure logout button is wired:
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('btnLogout');
+      if (btn && typeof logoutUser === 'function') {
+        // auth.js already attaches in most cases; this is a no-op if already attached
+        btn.addEventListener('click', logoutUser);
+      }
+    });
+  </script>
+  </body>
+  
+  </html>
 </body>
 
 </html>
