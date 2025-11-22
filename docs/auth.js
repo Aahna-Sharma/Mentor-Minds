@@ -1,153 +1,102 @@
-/* docs/auth.js
-   Email/password auth + session (access token in memory, refresh cookie via httpOnly cookie)
-   IMPORTANT: set BACKEND_URL below to your backend HTTPS URL (ngrok or hosted)
-*/
-const BACKEND_URL = "https://page-supermolten-tobias.ngrok-free.dev"; // <-- replace with your ngrok HTTPS URL
-
-let accessToken = null;
-function setAccessToken(t) {
-  accessToken = t;
-}
-
-async function authFetch(path, opts = {}) {
-  opts.headers = opts.headers || {};
-  if (accessToken) opts.headers["Authorization"] = `Bearer ${accessToken}`;
-  opts.credentials = "include";
-  let res = await fetch(BACKEND_URL + path, opts);
-  if (res.status === 401) {
-    const ok = await tryRefresh();
-    if (!ok) return res;
-    opts.headers["Authorization"] = `Bearer ${accessToken}`;
-    res = await fetch(BACKEND_URL + path, opts);
-  }
-  return res;
-}
-
-async function tryRefresh() {
-  try {
-    const r = await fetch(BACKEND_URL + "/api/auth/refresh", {
-      method: "POST",
-      credentials: "include",
+// docs/auth.js
+(function () {
+  // Wait until mentorAuth is ready
+  function waitFor(fn, timeout = 8000) {
+    return new Promise((resolve, reject) => {
+      const start = Date.now();
+      (function check() {
+        if (fn()) return resolve();
+        if (Date.now() - start > timeout)
+          return reject(new Error("mentorAuth timeout"));
+        setTimeout(check, 100);
+      })();
     });
-    if (!r.ok) return false;
-    const data = await r.json();
-    if (data.accessToken) {
-      setAccessToken(data.accessToken);
-      await fetchProfile();
-      return true;
+  }
+
+  async function init() {
+    await waitFor(() => window.mentorAuth && window.mentorAuth.auth);
+
+    const auth = window.mentorAuth.auth;
+    const firebase = window.mentorAuth.firebase;
+
+    const status = (msg) => {
+      const el = document.getElementById("status");
+      if (el) el.textContent = msg;
+      console.log("[STATUS]", msg);
+    };
+
+    // --- Auth Functions ---
+    async function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        status("Signing in with Google...");
+        const result = await auth.signInWithPopup(provider);
+        status(`Signed in as ${result.user.email}`);
+          window.location.href = "index.html";
+      } catch (e) {
+        console.error(e);
+        status("Google sign-in failed: " + e.message);
+      }
     }
-    return false;
-  } catch (e) {
-    console.error("refresh error", e);
-    return false;
-  }
-}
 
-async function registerUser(name, email, password) {
-  const res = await fetch(BACKEND_URL + "/api/auth/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ name, email, password }),
-  });
-  const data = await res.json();
-  if (!res.ok) throw data;
-  setAccessToken(data.accessToken);
-  localStorage.setItem("mm_user", JSON.stringify(data.user));
-  renderUserUI();
-  return data.user;
-}
-
-async function loginUser(email, password) {
-  const res = await fetch(BACKEND_URL + "/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ email, password }),
-  });
-  const data = await res.json();
-  if (!res.ok) throw data;
-  setAccessToken(data.accessToken);
-  localStorage.setItem("mm_user", JSON.stringify(data.user));
-  renderUserUI();
-  return data.user;
-}
-
-async function logoutUser() {
-  await fetch(BACKEND_URL + "/api/auth/logout", {
-    method: "POST",
-    credentials: "include",
-  });
-  setAccessToken(null);
-  localStorage.removeItem("mm_user");
-  renderUserUI();
-}
-
-async function fetchProfile() {
-  const r = await authFetch("/api/auth/me", { method: "GET" });
-  if (!r.ok) return null;
-  const data = await r.json();
-  localStorage.setItem("mm_user", JSON.stringify(data.user));
-  renderUserUI();
-  return data.user;
-}
-
-function renderUserUI() {
-  const el = document.getElementById("userName");
-  const u = JSON.parse(localStorage.getItem("mm_user") || "null");
-  if (el) el.textContent = u ? `Welcome, ${u.name || u.email}` : "";
-}
-
-// Attach to forms if they exist
-function attachFormHandlers() {
-  const signupForm = document.getElementById("signupForm");
-  if (signupForm) {
-    signupForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const name =
-        signupForm.querySelector('input[name="name"], #su_name')?.value || "";
-      const email =
-        signupForm.querySelector('input[name="email"], #su_email')?.value || "";
-      const password =
-        signupForm.querySelector('input[name="password"], #su_password')
-          ?.value || "";
+    async function githubLogin() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      provider.addScope("user:email");
       try {
-        await registerUser(name, email, password);
-        alert("Registered successfully");
-      } catch (err) {
-        alert("Signup error: " + (err.error || JSON.stringify(err)));
+        status("Signing in with GitHub...");
+        const result = await auth.signInWithPopup(provider);
+        status(`Signed in as ${result.user.email}`);
+          window.location.href = "index.html";
+      } catch (e) {
+        console.error(e);
+        status("GitHub sign-in failed: " + e.message);
       }
-    });
-  }
+    }
 
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email =
-        loginForm.querySelector('input[name="email"], #in_email')?.value || "";
-      const password =
-        loginForm.querySelector('input[name="password"], #in_password')
-          ?.value || "";
+    async function emailLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
       try {
-        await loginUser(email, password);
-        alert("Login successful");
-      } catch (err) {
-        alert("Login error: " + (err.error || JSON.stringify(err)));
+        status("Signing in with email...");
+        await auth.signInWithEmailAndPassword(email, password);
+        status("Signed in with email");
+          window.location.href = "index.html";
+      } catch (e) {
+        console.error(e);
+        status("Email login failed: " + e.message);
       }
+    }
+
+    async function emailSignup() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        status("Creating account...");
+        const result = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+        status("Account created: " + result.user.email);
+      } catch (e) {
+        console.error(e);
+        status("Signup failed: " + e.message);
+      }
+    }
+
+    // Attach buttons
+    document.getElementById("googleBtn").onclick = googleLogin;
+    document.getElementById("githubBtn").onclick = githubLogin;
+    document.getElementById("loginBtn").onclick = emailLogin;
+    document.getElementById("signupBtn").onclick = emailSignup;
+
+    // Auth state updates
+    auth.onAuthStateChanged((user) => {
+      if (user) status("Signed in: " + (user.email || user.displayName));
+      else status("Not signed in");
     });
+
+    status("Auth ready — you can sign in now");
   }
 
-  const logoutBtn = document.getElementById("btnLogout");
-  if (logoutBtn)
-    logoutBtn.addEventListener("click", async () => {
-      await logoutUser();
-      alert("Logged out");
-    });
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  attachFormHandlers();
-  await tryRefresh();
-  renderUserUI();
-});
+  init();
+})();

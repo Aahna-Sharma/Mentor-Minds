@@ -139,6 +139,174 @@ input::placeholder {
   cursor: pointer;
 }
 
+
+/* USER PANEL LAYOUT */
+.user-panel {
+  position: relative;
+}
+
+.user-meta {
+  display: block;
+  min-width: 0;
+  /* allow shrinking inside flex parent */
+}
+
+/* BIG CLICKABLE BUTTON */
+.user-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  min-width: 170px;
+  color: white;
+  transition: 0.15s ease;
+}
+
+.user-toggle:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.user-toggle:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.25);
+  outline-offset: 3px;
+}
+
+/* Avatar */
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Username */
+.user-labels {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* caret */
+.chev {
+  margin-left: auto;
+  opacity: 0.9;
+}
+
+/* DROPDOWN MENU */
+.user-menu {
+  min-width: 260px;
+    /* increase if you want more room */
+    max-width: 360px;
+    /* prevents it growing too large */
+    box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 230px;
+  background: #1e1e1e;
+  border: 1px solid rgba(152, 152, 152, 0.607);
+  border-radius: 10px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: 0.2s ease;
+  z-index: 5000;
+}
+
+.user-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Top info */
+.user-info {
+display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 10px;
+  min-width: 0;
+}
+
+.user-menu-avatar {
+  flex: 0 0 48px;
+  /* fixed box for avatar so text wraps next to it */
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.menu-name {
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.menu-email {
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-top: 4px;
+  white-space: normal;
+  /* allow line breaks */
+  word-break: break-word;
+  /* break long words/addresses if needed */
+  overflow-wrap: anywhere;
+  /* modern fallback for very long tokens */
+  display: block;
+  max-width: 100%;
+}
+
+/* separator */
+.menu-sep {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 10px 0;
+}
+
+/* Menu items */
+.menu-item {
+  display: block;
+  padding: 8px;
+  border-radius: 6px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.1s ease;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Sign out button */
+.signout {
+  width: 100%;
+  background: #a17df5;
+  border: 1px solid #000000;
+  color: rgb(0, 0, 0);
+}
+
+.signout:hover {
+  background: #8d60f5;
+}
+
 .login-link {
   display: inline-flex;
   /* Ensures text and icon stay in one line */
