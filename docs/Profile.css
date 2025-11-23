@@ -1,0 +1,491 @@
+:root {
+    --bg: #0b0b0b;
+    --panel: #111111;
+    --muted: #bdbdbd;
+    --accent: #a17df5;
+    --accent-contrast: #000;
+}
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px 50px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    /* Center the logo and text */
+    align-items: center;
+    /* Ensure vertical centering */
+    flex-grow: 1;
+    /* Take available space to stay centered */
+    position: absolute;
+    /* Allows centering without flex tricks */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Perfect horizontal centering */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    /* Pushes the search bar to the far right */
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 600px) {
+    .header {
+        flex-wrap: wrap;
+        padding: 10px 20px;
+    }
+
+    .center-content {
+        order: 1;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .header-right {
+        order: 2;
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+.mindshome {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo svg {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    /* Dark background */
+    border: 1px solid #fff;
+    /* White border */
+    border-radius: 0px;
+    padding: 1px 1px;
+    width: 100%;
+    /* Ensures it expands properly */
+}
+
+.search-bar:hover {
+    background-color: #232222;
+}
+
+.search-button {
+    size: 100%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding-left: 4px;
+    padding-right: 0px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+}
+
+.search-icon img {
+    height: 16px;
+    width: 16px;
+    align-content: center;
+}
+
+input[type="text"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    /* White text */
+    flex: 1;
+    /* Takes remaining space */
+    padding-left: 10px;
+    /* Spacing between icon and text */
+    font-size: 16px;
+    /* Matches the reference style */
+}
+
+input::placeholder {
+    color: #bbb;
+    /* Subtle placeholder text */
+}
+
+.login {
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    color: #a17df5;
+    cursor: pointer;
+}
+
+
+/* USER PANEL LAYOUT */
+.user-panel {
+    position: relative;
+}
+
+.user-meta {
+    display: block;
+    min-width: 0;
+    /* allow shrinking inside flex parent */
+}
+
+/* BIG CLICKABLE BUTTON */
+.user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 170px;
+    color: white;
+    transition: 0.15s ease;
+}
+
+.user-toggle:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.user-toggle:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.25);
+    outline-offset: 3px;
+}
+
+/* Avatar */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Username */
+.user-labels {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* caret */
+.chev {
+    margin-left: auto;
+    opacity: 0.9;
+}
+
+/* DROPDOWN MENU */
+.user-menu {
+    min-width: 260px;
+    /* increase if you want more room */
+    max-width: 360px;
+    /* prevents it growing too large */
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 230px;
+    background: #1e1e1e;
+    border: 1px solid rgba(152, 152, 152, 0.607);
+    border-radius: 10px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: 0.2s ease;
+    z-index: 5000;
+}
+
+.user-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Top info */
+.user-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 10px;
+    min-width: 0;
+}
+
+.user-menu-avatar {
+    flex: 0 0 48px;
+    /* fixed box for avatar so text wraps next to it */
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.menu-name {
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.menu-email {
+    font-size: 12px;
+    color: #bdbdbd;
+    margin-top: 4px;
+    white-space: normal;
+    /* allow line breaks */
+    word-break: break-word;
+    /* break long words/addresses if needed */
+    overflow-wrap: anywhere;
+    /* modern fallback for very long tokens */
+    display: block;
+    max-width: 100%;
+}
+
+/* separator */
+.menu-sep {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 10px 0;
+}
+
+/* Menu items */
+.menu-item {
+    display: block;
+    padding: 8px;
+    border-radius: 6px;
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.1s ease;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Sign out button */
+.signout {
+    width: 100%;
+    background: #a17df5;
+    border: 1px solid #000000;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.signout:hover {
+    background: #000000;
+    color: #a17df5;
+    border: 1px solid #a17df5;
+}
+
+.login-link {
+    display: inline-flex;
+    /* Ensures text and icon stay in one line */
+    align-items: center;
+    /* Centers items vertically */
+    text-decoration: none;
+    /* Removes underline */
+    color: #a17df5;
+    /* Purple color */
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 14px;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    gap: 8px;
+    /* Adds spacing between icon and text */
+}
+
+.login-link svg {
+    width: 24px;
+    /* Ensures icon size is appropriate */
+    height: 24px;
+}
+
+.login-link:hover {
+    color: #b19fff;
+    /* Slightly brighter purple on hover for effect */
+}
+
+.nav-menu {
+    display: flex;
+    text-align: center;
+    background-color: #000;
+    font-family: "Droid Serif";
+    font-size: 17px;
+}
+
+.nav-menu a {
+    flex: 1;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.nav-menu a:hover {
+    background-color: #a17df5;
+    color: #000;
+}
+/* layout */
+.hero {
+    padding: 48px 20px 28px;
+    text-align: center
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 0 0 12px;
+    letter-spacing: -1px;
+    font-weight: 800;
+    color: #fff
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 18px
+}
+
+.container {
+    max-width: 1100px;
+    margin: 18px auto;
+    padding: 0 20px 60px;
+
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+    background: #1e1e1e;
+}
+
+.card {
+    background: linear-gradient(180deg, rgb(255, 255, 255), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 18px;
+    border-radius: 12px
+
+}
+
+.profile-card {
+    padding: 20px;
+    text-align: center;
+}
+
+.big-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin: 0 auto 12px;
+    display: block;
+    background: #e6e9ef
+}
+
+.profile-card h2 {
+    margin: 6px 0 4px;
+    font-size: 22px
+}
+
+.email {
+    color: var(--muted);
+    margin: 0 0 12px;
+    font-size: 14px
+}
+
+.edit-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer
+}
+
+.profile-form label {
+    font-size: 13px;
+    color: var(--muted);
+    display: block;
+    margin-top: 12px
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: #0b0b0b;
+    color: #fff;
+    margin-top: 6px;
+    box-sizing: border-box
+}
+
+.save-btn {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: var(--accent);
+    border: none;
+    color: var(--accent-contrast);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.search-bar:hover{
+    background-color: #000000;
+        color: #a17df5;
+}
+
+@media (max-width:880px) {
+    .profile-grid {
+        grid-template-columns: 1fr
+    }
+
+    .user-name {
+        max-width: 80px
+    }
+}

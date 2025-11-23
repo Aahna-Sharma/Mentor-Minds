@@ -15,6 +15,8 @@
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" href="Homepagestyle.css" />
+     
+        
     </head>
 
 <body>
@@ -57,46 +59,46 @@
                 Log In
             </a>
 
-<!-- USER PANEL (FULL CLICKABLE AREA + DROPDOWN) -->
-<div id="userPanel" class="user-panel" aria-live="polite" style="display:none; position:relative;">
-  
-  <!-- Entire button is clickable -->
-  <button id="userToggle" class="user-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="userMenu">
-    <img id="userAvatar" class="user-avatar" 
-         src="/mnt/data/a3d89637-c4ed-470e-a102-98e746a5abad.png" alt="User avatar">
+            <!-- USER PANEL (FULL CLICKABLE AREA + DROPDOWN) -->
+            <div id="userPanel" class="user-panel" aria-live="polite" style="display:none; position:relative;">
+            
+            <!-- Entire button is clickable -->
+            <button id="userToggle" class="user-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="userMenu">
+                <img id="userAvatar" class="user-avatar" 
+                    src="" alt="User avatar">
 
-    <span class="user-labels">
-      <span id="userName" class="user-name">User</span>
-    </span>
+                <span class="user-labels">
+                <span id="userName" class="user-name">User</span>
+                </span>
 
-    <svg class="chev" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="#fff" d="M7 10l5 5 5-5z"/>
-    </svg>
-  </button>
+                <svg class="chev" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#fff" d="M7 10l5 5 5-5z"/>
+                </svg>
+            </button>
 
-  <!-- DROPDOWN -->
-  <div id="userMenu" class="user-menu" role="menu" aria-hidden="true" tabindex="-1">
+            <!-- DROPDOWN -->
+            <div id="userMenu" class="user-menu" role="menu" aria-hidden="true" tabindex="-1">
 
-    <div class="user-info">
-      <img class="user-menu-avatar" 
-           src="/mnt/data/a3d89637-c4ed-470e-a102-98e746a5abad.png" alt="">
-      <div class="user-meta">
-        <div id="menuName" class="menu-name">Display Name</div>
-        <div id="menuEmail" class="menu-email">email@example.com</div>
-      </div>
-    </div>
+                <div class="user-info">
+                <img class="user-menu-avatar" 
+                    src="" alt="">
+                <div class="user-meta">
+                    <div id="menuName" class="menu-name">Display Name</div>
+                    <div id="menuEmail" class="menu-email">email@example.com</div>
+                </div>
+                </div>
 
-    <hr class="menu-sep" color="#a17df5">
+                <hr class="menu-sep" color="#a17df5">
 
-    <a href="Profile.html" class="menu-item" role="menuitem">Profile</a>
-    <a href="Settings.html" class="menu-item" role="menuitem">Settings</a>
-    <a href="Dashboard.html" class="menu-item" role="menuitem">Dashboard</a>
+                <a href="Profile.html" class="menu-item" role="menuitem">Profile</a>
+                <a href="Settings.html" class="menu-item" role="menuitem">Settings</a>
+                <a href="Dashboard.html" class="menu-item" role="menuitem">Dashboard</a>
 
-    <hr class="menu-sep" color="#a17df5">
+                <hr class="menu-sep" color="#a17df5">
 
-    <button id="menuSignOut" class="menu-item signout" role="menuitem">Sign out</button>
-  </div>
-</div>
+                <button id="menuSignOut" class="menu-item signout" role="menuitem">Sign out</button>
+            </div>
+            </div>
 
 
             </div>
@@ -194,14 +196,22 @@
             </div>
         </div>
     </footer>
-    <!-- your firebase initializer (must set auth persistence) -->
-<script src="firebase-auth.js"></script>
 
-<!-- your existing auth logic (sign-in / redirect handlers) -->
-<script src="auth.js"></script>
 
-<!-- account UI that listens to onAuthStateChanged and updates navbar -->
-<script src="account-ui.js"></script>
+
+<!-- 1) Firebase compat SDKs (ONLY once on the page) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<!-- 2) Your initializer that calls firebase.initializeApp(...) -->
+<script src="/firebase-auth.js"></script>
+
+<!-- 3) Your app scripts that rely on firebase -->
+      <!-- put on login page only if it contains login buttons -->
+<script src="/account-ui.js"></script>
+<script src="/header-dropdown-final.js"></script>
+
+
 <script>
 (function(){
   // small safety fallback — if Firebase currentUser already exists, force navbar update
@@ -213,21 +223,74 @@
     const userName = document.getElementById('userName');
     if (loginLink) loginLink.style.display = 'none';
     if (userPanel) userPanel.style.display = 'flex';
-    if (userAvatar) userAvatar.src = u.photoURL || '/mnt/data/7c022f66-270a-4cca-9835-f3a321767bb2.png';
+    if (userAvatar) userAvatar.src = u.photoURL || '';
     if (userName) userName.textContent = u.displayName || u.email || 'User';
   }
 
-  // if currentUser already present, apply immediately
   try {
     if (window.firebase && firebase.auth && firebase.auth().currentUser) {
       applyUserToNavbar(firebase.auth().currentUser);
     } else {
-      // otherwise, wait a bit and try again (handles redirect timing)
-      setTimeout(() => { if (window.firebase && firebase.auth && firebase.auth().currentUser) applyUserToNavbar(firebase.auth().currentUser); }, 500);
+      setTimeout(() => { 
+        if (window.firebase && firebase.auth && firebase.auth().currentUser)
+            applyUserToNavbar(firebase.auth().currentUser);
+      }, 500);
     }
   } catch(e){ console.warn('safety navbar update failed', e); }
 })();
 </script>
+<script>
+(function(){
+  // Runs AFTER DOM and AFTER firebase + mentorAuth exist
+  function waitForFirebaseReady(fn){
+    const iv = setInterval(()=>{
+      if (window.firebase && firebase.auth && window.mentorAuth && mentorAuth.auth){
+        clearInterval(iv);
+        fn();
+      }
+    }, 50);
+  }
+
+  waitForFirebaseReady(()=>{
+    console.log("[Navbar] Firebase ready");
+
+    firebase.auth().onAuthStateChanged((user)=>{
+      console.log("[Navbar] onAuthStateChanged ->", user && user.email);
+
+      const loginLink = document.getElementById("loginLink");
+      const userPanel  = document.getElementById("userPanel");
+      const avatar     = document.getElementById("userAvatar");
+      const userName   = document.getElementById("userName");
+      const menuName   = document.getElementById("menuName");
+      const menuEmail  = document.getElementById("menuEmail");
+
+      if (!user) {
+        if (loginLink)  loginLink.style.display = "flex";
+        if (userPanel)  userPanel.style.display = "none";
+        return;
+      }
+
+      // USER IS LOGGED IN → show dropdown
+      if (loginLink) loginLink.style.display = "none";
+      if (userPanel) userPanel.style.display = "flex";
+
+      const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
+      const email = user.email || "";
+      const photo = user.photoURL || "";
+
+      if (avatar) avatar.src = photo;
+      if (userName) userName.textContent = name;
+      if (menuName) menuName.textContent = name;
+      if (menuEmail) menuEmail.textContent = email;
+
+      // open menu only if you want:
+      // document.getElementById("userMenu").classList.add("open");
+    });
+  });
+})();
+</script>
+
+
 
 </body>
 

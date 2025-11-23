@@ -1,50 +1,96 @@
-// docs/firebase-auth.js
-// Loads Firebase compat SDK from CDN (attach dynamically)
-
+// firebase-auth.js — robust initializer (paste into /firebase-auth.js)
 (function () {
-  // Load Firebase compat SDKs if not already loaded
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
+  // === EDIT THIS: put your real firebase config here ===
+  const firebaseConfig = {
+    apiKey: "AIzaSyAYjBkpsYgljPkNaDEbr8cwkzVvNMzLfDc",
+    authDomain: "the-mentor-minds-46f88.firebaseapp.com",
+    projectId: "the-mentor-minds-46f88",
+    storageBucket: "the-mentor-minds-46f88.firebasestorage.app",
+    messagingSenderId: "19125411333",
+    appId: "1:19125411333:web:a3e274b5830d6cad07466c",
+    measurementId: "G-QKNJFEY8X4",
+    // ... add other keys from your Firebase console
+  };
+  // =====================================================
+
+  function safeLog(...args) {
+    try {
+      console.log.apply(console, args);
+    } catch (e) {}
+  }
+
+  // Wait until firebase SDK is loaded (timeout if not)
+  function waitForFirebaseSDK(timeout = 3000) {
+    return new Promise((resolve) => {
+      if (window.firebase && firebase.initializeApp) return resolve(true);
+      const start = Date.now();
+      const iv = setInterval(() => {
+        if (window.firebase && firebase.initializeApp) {
+          clearInterval(iv);
+          resolve(true);
+          return;
+        }
+        if (Date.now() - start > timeout) {
+          clearInterval(iv);
+          resolve(false);
+        }
+      }, 100);
     });
   }
 
-  async function initFirebase() {
-    // Load Firebase compat scripts
-    await loadScript(
-      "https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"
-    );
-    await loadScript(
-      "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"
-    );
-
-    // Replace this config with your actual Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAYjBkpsYgljPkNaDEbr8cwkzVvNMzLfDc",
-      authDomain: "the-mentor-minds-46f88.firebaseapp.com",
-      projectId: "the-mentor-minds-46f88",
-    };
-
-    if (!window.firebaseAppInitialized) {
-      firebase.initializeApp(firebaseConfig);
-      window.firebaseAppInitialized = true;
+  (async function initFirebase() {
+    const ok = await waitForFirebaseSDK(4000);
+    if (!ok) {
+      safeLog(
+        "[firebase-auth] Firebase SDK not found within timeout. Ensure the SDK <script> tags are included BEFORE firebase-auth.js"
+      );
+      return;
     }
 
-    const auth = firebase.auth();
+    try {
+      // Avoid double-init
+      if (!firebase.apps || firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+        safeLog("[firebase-auth] firebase.initializeApp called");
+      } else {
+        safeLog(
+          "[firebase-auth] firebase app already initialized (skipping initializeApp)"
+        );
+      }
 
-    // Persist login across reloads
-    auth
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .catch(console.warn);
+      // Expose mentorAuth on window for other scripts that wait for it
+      window.mentorAuth = window.mentorAuth || {};
+      window.mentorAuth.firebase = firebase;
+      try {
+        window.mentorAuth.auth = firebase.auth();
+      } catch (e) {
+        safeLog("[firebase-auth] firebase.auth() failed:", e && e.message);
+        // don't throw — other code should handle missing auth gracefully
+      }
 
-    // Expose globally
-    window.mentorAuth = { auth, firebase };
-  }
+      // Set persistence so redirect flows persist across reloads
+      try {
+        if (
+          window.mentorAuth &&
+          window.mentorAuth.auth &&
+          firebase.auth.Auth &&
+          firebase.auth.Auth.Persistence
+        ) {
+          await window.mentorAuth.auth.setPersistence(
+            firebase.auth.Auth.Persistence.LOCAL
+          );
+          safeLog("[firebase-auth] auth persistence set to LOCAL");
+        }
+      } catch (e) {
+        safeLog("[firebase-auth] could not set persistence:", e && e.message);
+      }
 
-  // Start initialization
-  initFirebase().catch(console.error);
+      safeLog(
+        "[firebase-auth] initialized — apps.length=",
+        (firebase.apps && firebase.apps.length) || 0
+      );
+    } catch (err) {
+      safeLog("[firebase-auth] init error", err && err.message);
+    }
+  })();
 })();

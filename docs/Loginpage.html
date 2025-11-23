@@ -1,632 +1,199 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mentor-Minds — Login</title>
-
-  <style>
-    .input input,
-.input input:-webkit-autofill,
-.input input:-webkit-autofill:hover,
-.input input:-webkit-autofill:focus,
-.input input:-webkit-autofill:active {
-  /* force dark appearance */
-  background-color: transparent !important;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.00) inset !important;
-  box-shadow: 0 0 0px 1000px rgba(255,255,255,0.00) inset !important;
-  -webkit-text-fill-color: #ffffff !important; /* text color when autofilled */
-  color: #ffffff !important;
-  transition: background-color 0.01s ease-out; /* prevents flash */
-}
-
-/* Firefox autofill */
-.input input:-moz-autofill,
-.input input:-moz-autofill:hover,
-.input input:-moz-autofill:focus {
-  box-shadow: 0 0 0px 1000px rgba(255,255,255,0.00) inset !important;
-  -moz-text-fill-color: #ffffff !important;
-  color: #ffffff !important;
-}
-
-/* Make sure focus state doesn't change background to white */
-.input input:focus,
-.input input:active {
-  background: transparent !important;
-  color: #fff !important;
-  outline: none;
-}
-
-/* Placeholder color (so it's visible but muted) */
-.input input::placeholder { color: rgba(191,191,198,0.55); }
-
-/* caret color so typed cursor is visible */
-.input input { caret-color: #8d6eff; }
-
-/* if you use plain input selectors elsewhere, ensure they are included too */
-input[type="email"],
-input[type="password"],
-input[type="text"],
-textarea {
-  background: transparent !important;
-  color: #fff !important;
-}
-    :root{
-      --bg-0:#050507;
-      --bg-1:#0d0d10;
-      --card:#0f0f12;
-      --muted:#bfbfc6;
-      --accent1:#8d6eff;
-      --accent2:#6f4cff;
-      --glass: rgba(255,255,255,0.03);
-      --soft-border: rgba(255,255,255,0.06);
-      --thick-border: rgba(255,255,255,0.09);
-      --danger:#ff6b6b;
-      --radius:14px;
-      --shadow: 0 18px 50px rgba(3,4,8,0.65);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-
-    html,body{height:100%; margin:0}
-    body{
-      background:
-        radial-gradient(900px 400px at 10% 10%, rgba(109,86,255,0.04), transparent 6%),
-        radial-gradient(900px 400px at 90% 90%, rgba(111,76,255,0.02), transparent 6%),
-        linear-gradient(180deg,var(--bg-0), var(--bg-1));
-      color:#eee;
-      -webkit-font-smoothing:antialiased;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:36px;
-    }
-
-    /* Layout */
-    .wrap{
-      width:100%;
-      max-width:1120px;
-      display:grid;
-      grid-template-columns: 1fr 520px;
-      gap:32px;
-      align-items:stretch;
-    }
-
-    /* Left promo panel (now richer) */
-    .promo{
-      padding:36px;
-      border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      box-shadow: var(--shadow);
-      display:flex;
-      flex-direction:column;
-      gap:22px;
-      border:2px solid var(--thick-border); /* thicker border */
-      min-height:480px;
-    }
-    .brand{
-      display:flex; gap:16px; align-items:center;
-    }
-    .brand img{
-      width:76px; height:76px; border-radius:14px; object-fit:cover;
-      border:2px solid rgba(255,255,255,0.04); background:#000;
-    }
-    .brand .title{font-size:22px; font-weight:800; margin:0}
-    .brand .tag{color:var(--muted); font-size:13px}
-
-    .hero{
-      font-size:36px; font-weight:900; line-height:1.02; color:#fff; margin:0;
-      display:flex; align-items:center; gap:12px;
-    }
-    .hero-badge{
-      background: linear-gradient(90deg,var(--accent1),var(--accent2));
-      color:#080808; padding:8px 12px; border-radius:999px; font-weight:800; font-size:13px;
-      box-shadow: 0 10px 30px rgba(109,86,255,0.14);
-    }
-
-    .hero-sub{ color:var(--muted); font-size:15px; max-width:64ch }
-
-    /* Feature tiles to fill left area */
-    .features{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:12px;
-      margin-top:6px;
-    }
-    .feature{
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.04);
-      display:flex; gap:10px; align-items:flex-start;
-    }
-    .feature .ico{
-      width:36px; height:36px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center;
-      background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#080808; font-weight:800;
-    }
-    .feature .txt{font-size:13px; color:var(--muted)}
-
-    .cta-row{margin-top:18px; display:flex; gap:12px; align-items:center}
-    .cta-primary{
-      padding:12px 18px; border-radius:12px; font-weight:800; background: linear-gradient(90deg,var(--accent1),var(--accent2));
-      color:#070707; border:2px solid rgba(109,86,255,0.12); cursor:pointer;
-      box-shadow: 0 12px 36px rgba(109,86,255,0.12);
-    }
-    .cta-secondary{
-      padding:10px 14px; background:transparent; color:var(--muted); border-radius:12px; border:1px solid rgba(255,255,255,0.04); cursor:pointer;
-    }
-
-    /* Card (right) */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border-radius:var(--radius);
-      padding:28px;
-      box-shadow: var(--shadow);
-      border:2px solid var(--thick-border); /* thicker border */
-      position:relative;
-      min-height:480px;
-    }
-
-    .close-x{
-      position:absolute; right:14px; top:14px;
-      background:transparent; border:1px solid rgba(255,255,255,0.04);
-      color:var(--muted); width:40px; height:40px; border-radius:10px;
-      display:inline-flex; align-items:center; justify-content:center;
-      cursor:pointer;
-    }
-    .close-x:focus{outline:2px solid rgba(141,110,255,0.18); outline-offset:2px}
-
-    .card h2{margin:0 0 8px 0; font-size:18px}
-    .card p.lead{margin:0 0 16px 0; color:var(--muted); font-size:13px}
-
-    /* form fields larger with thicker borders and more padding */
-    .field{margin-bottom:16px; display:flex; flex-direction:column; gap:8px}
-    label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
-
-    .input{
-      display:flex; align-items:center; gap:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border-radius:12px; padding:12px 14px; border:1.5px solid rgba(255,255,255,0.06);
-    }
-    .input input{
-      background:transparent; border:0; outline:none; color: #fff; font-size:15px; width:100%;
-    }
-
-    /* Autofill neutralization: keep inputs dark when browser autofills */
-    .input input:-webkit-autofill,
-    .input input:-webkit-autofill:hover,
-    .input input:-webkit-autofill:focus,
-    .input input:-webkit-autofill:active {
-      -webkit-text-fill-color: #fff !important;
-      -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.00) inset !important;
-      box-shadow: 0 0 0px 1000px rgba(255,255,255,0.00) inset !important;
-      background-clip: padding-box !important;
-    }
-    .input input:focus,
-    .input input:active {
-      background: transparent;
-      color: #fff;
-    }
-
-    /* eye icon - bigger, clear click area */
-    .input .eye-btn{
-      background:transparent; border:0; cursor:pointer; padding:6px; border-radius:8px; color:var(--muted);
-      display:inline-flex; align-items:center; justify-content:center;
-    }
-    .input .eye-btn:focus{outline:2px solid rgba(141,110,255,0.12)}
-
-    /* action buttons — bigger and distinct */
-    .actions{display:flex; gap:14px; align-items:center; margin-top:12px}
-    .btn{
-      border:1px solid transparent; cursor:pointer; padding:12px 18px; border-radius:12px; font-weight:900;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      color:var(--bg-0); box-shadow: 0 12px 36px rgba(109,86,255,0.12);
-      transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
-    }
-    .btn:hover{ transform: translateY(-3px) }
-    .btn.secondary{
-      background:transparent; color:var(--muted);
-      border:1px solid rgba(255,255,255,0.06); font-weight:800;
-      box-shadow:none;
-      padding:12px 16px;
-    }
-
-    .separator{height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); margin:18px 0;border-radius:2px}
-
-    .social{display:flex; flex-direction:column; gap:12px}
-    .social button{
-      display:flex; align-items:center; gap:12px; padding:12px; border-radius:12px; border:1.5px solid rgba(255,255,255,0.06);
-      background:#0b0b0b; color:var(--muted); font-weight:800; cursor:pointer;
-    }
-    .social button:hover{ background: rgba(255,255,255,0.02) }
-
-    #status{ margin-top:12px; font-size:13px; color:var(--muted) }
-
-    .small{font-size:13px;color:var(--muted)}
-    .footer-links{margin-top:10px; display:flex; justify-content:space-between; gap:10px; align-items:center}
-
-    /* responsive */
-    @media (max-width:980px){
-      .wrap{ grid-template-columns: 1fr; gap:18px }
-      .promo{ order:2 }
-      .card{ order:1 }
-    }
-  </style>
+  <link rel ="stylesheet" href="Loginpage.css" />
+  
 </head>
+
 <body>
-  <main class="wrap" role="main" aria-labelledby="loginHeading">
+  <div class="card" role="main" aria-labelledby="loginTitle">
+    <h1 id="loginTitle">Sign in to Mentor-Minds</h1>
+    <p class="sub">Use Google, GitHub, or email to sign in.</p>
 
-    <!-- left promo (now with features and CTA) -->
-    <section class="promo" aria-hidden="false">
-      <div class="brand">
-        <!-- LOGO: local file you uploaded -->
-        <img src="/mnt/data/f15ad739-f107-4016-8c83-9df750f95f93.png" alt="Mentor Minds logo" onerror="this.style.display='none'">
-        <div>
-          <div class="title">The Mentor Minds</div>
-          <div class="tag">Tools, notes & study resources for students & developers</div>
-        </div>
-      </div>
+    <div class="field">
+      <input id="email" type="email" placeholder="Email" autocomplete="email">
+    </div>
+    <div class="field">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+       <div class="field" style="display:flex; gap:8px; margin-top:12px">
+      <button id="emailSignIn" class="btn">Sign in with email</button>
+      <button id="emailSignUp" class="btn" type="button">Create account</button>
+    </div>
 
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="hero">Welcome back</div>
-        <div class="hero-badge" aria-hidden="true">Good to see you</div>
-      </div>
 
-      <div class="hero-sub">Sign in to access your dashboard, saved tools, and study materials. Use Google or GitHub for quick login or sign in with email below.</div>
+    <div class="oauth-row">
+      <button id="googleBtn" class="oauth-btn" aria-label="Sign in with Google">Sign in with Google</button>
+      <button id="githubBtn" class="oauth-btn" aria-label="Sign in with GitHub">Sign in with GitHub</button>
+    </div>
 
-      <div class="features" aria-hidden="true">
-        <div class="feature"><div class="ico">1</div><div class="txt"><strong>All-in-one tools</strong><br><span style="color:var(--muted)">Utilities for coding, docs & conversions</span></div></div>
-        <div class="feature"><div class="ico">A</div><div class="txt"><strong>Study resources</strong><br><span style="color:var(--muted)">Practice papers, notes & labs</span></div></div>
-        <div class="feature"><div class="ico">S</div><div class="txt"><strong>Save & sync</strong><br><span style="color:var(--muted)">Access your settings anywhere</span></div></div>
-        <div class="feature"><div class="ico">⚡</div><div class="txt"><strong>Fast sign-in</strong><br><span style="color:var(--muted)">Google / GitHub OAuth</span></div></div>
-      </div>
+    <div style="margin-top:10px" class="small">Don't have an account? <a href="#" id="createAccount">Create one</a>
+    </div>
 
-      <div class="cta-row">
-        <button class="cta-primary" onclick="window.location.href='/Dashboard.html'">Explore tools</button>
-        <button class="cta-secondary" onclick="window.location.href='Signuppage.html'">Create account</button>
-      </div>
-    </section>
+    <div id="err" class="error"></div>
+  </div>
 
-    <!-- right card -->
-    <section class="card" aria-labelledby="loginHeading">
-      <button class="close-x" id="closeBtn" title="Close (return to previous page)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="auth.js"></script>
 
-      <h2 id="loginHeading">Sign in to Mentor-Minds</h2>
-      <p class="lead">Use your account to continue</p>
-
-      <form id="loginForm" autocomplete="on" novalidate>
-        <div class="field">
-          <label for="email">Email</label>
-          <div class="input" role="group" aria-labelledby="email">
-            <input id="email" name="email" type="email" inputmode="email" placeholder="you@example.com" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <div class="input" role="group" aria-labelledby="password">
-            <input id="password" name="password" type="password" placeholder="Your password" required>
-            <!-- eye icon button toggles properly -->
-            <button type="button" class="eye-btn" id="togglePwd" aria-label="Show password" aria-pressed="false">
-              <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="footer-links">
-          <label class="small"><input id="remember" type="checkbox" style="margin-right:8px"> Remember me</label>
-          <a href="ForgotPassword.html" class="small" style="color:var(--muted)">Forgot password?</a>
-        </div>
-
-        <div class="actions" style="margin-top:14px">
-          <button id="loginBtn" class="btn" type="submit">Login</button>
-          <button id="signupBtn" class="btn secondary" type="button" onclick="window.location.href='Signuppage.html'">Create account</button>
-        </div>
-
-        <div class="separator" role="separator" aria-hidden="true"></div>
-
-        <div class="social" aria-hidden="false">
-          <button id="googleBtn" type="button" aria-label="Sign in with Google">
-            <svg viewBox="0 0 24 24" width="18" height="18" style="flex:0 0 18px"><path d="M21.6 12.24c0-.68-.06-1.36-.18-2.01H12v3.81h5.24c-.23 1.28-1 2.36-2.12 3.09v2.59h3.42c2.01-1.86 3.18-4.58 3.18-7.48z" fill="#4285F4"/><path d="M12 22c2.7 0 4.96-.9 6.62-2.45l-3.42-2.59c-.95.63-2.17 1.01-3.2 1.01-2.46 0-4.54-1.66-5.29-3.9H3.08v2.44C4.74 19.92 8.08 22 12 22z" fill="#34A853"/><path d="M6.71 13.07c-.22-.66-.35-1.36-.35-2.07 0-.72.13-1.41.35-2.07V6.49H3.08C2.12 7.91 1.6 9.83 1.6 11.99c0 2.17.52 4.08 1.48 5.5l3.63-2.42z" fill="#FBBC05"/><path d="M12 5.4c1.47 0 2.78.5 3.82 1.49l2.87-2.87C16.95 2.69 14.7 2 12 2 8.08 2 4.74 4.08 3.08 6.49l3.63 2.44C7.46 7.06 9.54 5.4 12 5.4z" fill="#EA4335"/></svg>
-            Sign in with Google
-          </button>
-
-          <button id="githubBtn" type="button" aria-label="Sign in with GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.55-3.88-1.55-.53-1.36-1.3-1.72-1.3-1.72-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.53.11-3.18 0 0 .98-.31 3.2 1.19.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.65.23 2.88.11 3.18.75.81 1.2 1.84 1.2 3.1 0 4.43-2.69 5.4-5.25 5.69.42.36.8 1.08.8 2.17 0 1.57-.01 2.83-.01 3.21 0 .31.21.67.8.56C20.71 21.38 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z"/></svg>
-            Sign in with GitHub
-          </button>
-        </div>
-
-        <div id="status" aria-live="polite">Initializing auth...</div>
-      </form>
-    </section>
-
-  </main>
-
-  <!-- your firebase config and init -->
-  <script src="firebase-auth.js"></script>
-  <script src="auth.js"></script>
-
-  <!-- behavior script: redirect-based social signin (no popups) -->
   <script>
-(async function(){
-  const DEFAULT_LOCAL_AVATAR = '/mnt/data/f15ad739-f107-4016-8c83-9df750f95f93.png';
-
-  // DOM refs
-  const form = document.getElementById('loginForm');
-  const emailEl = document.getElementById('email');
-  const pwdEl = document.getElementById('password');
-  const toggleBtn = document.getElementById('togglePwd');
-  const eyeIcon = document.getElementById('eyeIcon');
-  const googleBtn = document.getElementById('googleBtn');
-  const githubBtn = document.getElementById('githubBtn');
-  const status = document.getElementById('status');
-  const loginBtn = document.getElementById('loginBtn');
-  const closeBtn = document.getElementById('closeBtn');
-
-  function log(...args){ console.log('[loginpage]', ...args); }
-  function showStatus(msg, isError){
-    if(status) status.textContent = msg;
-    if(status) status.style.color = isError ? 'var(--danger)' : 'var(--muted)';
-    log(msg);
-  }
-  function goHome(){ location.replace('index.html'); }
-
-  // helper: get project auth instance (compat or wrapper)
-  function getAuth() {
-    if (window.mentorAuth && window.mentorAuth.auth) return window.mentorAuth.auth;
-    if (window.MentorAuth && typeof window.MentorAuth.getAuth === 'function') {
-      try { return window.MentorAuth.getAuth(); } catch(e){}
-    }
-    if (window.firebase && firebase.auth) return firebase.auth();
-    return null;
-  }
-
-  // avatar utils
-  function initialsFrom(input){
-    if(!input) return 'U';
-    const user = (input.displayName || input.email || input).toString();
-    const parts = user.split(/[.\s_\-@]+/).filter(Boolean);
-    if(parts.length === 0) return (user.slice(0,2)||'U').toUpperCase();
-    if(parts.length === 1) return (parts[0].slice(0,2) || parts[0][0]).toUpperCase();
-    return ((parts[0][0]||'') + (parts[1][0]||'')).toUpperCase();
-  }
-  function colorFrom(seed){
-    let h=0;
-    if(seed) for(let i=0;i<seed.length;i++) h = (h<<5) - h + seed.charCodeAt(i);
-    const hue = Math.abs(h) % 360;
-    return `hsl(${hue} 60% 55%)`;
-  }
-  function svgDataUrl(initials, bg, size=128){
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'>
-      <rect width='100%' height='100%' rx='20' fill='${bg}'/>
-      <text x='50%' y='50%' font-family='Inter,system-ui,Arial' font-weight='700' font-size='52' fill='#fff' dominant-baseline='middle' text-anchor='middle'>${initials}</text>
-    </svg>`;
-    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  }
-  function persistAvatarForUser(idKey, nameOrEmail){
-    try {
-      const key = 'mm_avatar_' + (idKey || nameOrEmail || 'anon');
-      let v = localStorage.getItem(key);
-      if(v) return v;
-      const init = initialsFrom(nameOrEmail || idKey);
-      const bg = colorFrom(nameOrEmail || idKey || init);
-      v = svgDataUrl(init, bg, 128);
-      localStorage.setItem(key, v);
-      return v;
-    } catch(e){ return DEFAULT_LOCAL_AVATAR; }
-  }
-
-  // update user snapshot and UI if present
-  function persistAndApplySnapshot(user){
-    try {
-      const snap = {
-        uid: user.uid || '',
-        displayName: user.displayName || '',
-        email: user.email || '',
-        photoURL: user.photoURL || ''
+    // ---------- INSERT YOUR FIREBASE CONFIG BELOW ----------
+    const firebaseConfig = {
+        apiKey: "AIzaSyAYjBkpsYgljPkNaDEbr8cwkzVvNMzLfDc",
+        authDomain: "the-mentor-minds-46f88.firebaseapp.com",
+        projectId: "the-mentor-minds-46f88",
+        storageBucket: "the-mentor-minds-46f88.firebasestorage.app",
+        messagingSenderId: "19125411333",
+        appId: "1:19125411333:web:a3e274b5830d6cad07466c",
+        measurementId: "G-QKNJFEY8X4"
       };
-      if(!snap.photoURL) {
-        const gen = persistAvatarForUser(snap.uid || snap.email, snap.displayName || snap.email);
-        snap.photoURL = gen;
-      }
-      localStorage.setItem('mm_user_snapshot', JSON.stringify(snap));
-      // update any UI elements that exist
-      const avatarEl = document.getElementById('userAvatar');
-      const menuAv = document.querySelector('.user-menu-avatar');
-      const nameEl = document.getElementById('userName');
-      const menuName = document.getElementById('menuName');
-      const menuEmail = document.getElementById('menuEmail');
-      if(avatarEl) avatarEl.src = snap.photoURL || DEFAULT_LOCAL_AVATAR;
-      if(menuAv) menuAv.src = snap.photoURL || DEFAULT_LOCAL_AVATAR;
-      if(nameEl) nameEl.textContent = snap.displayName || snap.email || 'User';
-      if(menuName) menuName.textContent = snap.displayName || snap.email || 'User';
-      if(menuEmail) menuEmail.textContent = snap.email || '';
-    } catch(e){ log('persistAndApplySnapshot error', e); }
-  }
+    // -------------------------------------------------------
 
-  // Early: attach onAuthStateChanged watcher once (single authoritative watcher)
-  (function installWatcher(){
-    try {
-      const auth = getAuth();
-      if(!auth || typeof auth.onAuthStateChanged !== 'function') {
-        // if firebase lib loads later, poll until available then attach
-        let tries = 0;
-        const poll = setInterval(() => {
-          tries++;
-          const a = getAuth();
-          if(a && typeof a.onAuthStateChanged === 'function') {
-            clearInterval(poll);
-            a.onAuthStateChanged(onAuthChanged);
-            log('auth watcher attached (late)');
-          }
-          if(tries>12) clearInterval(poll);
-        }, 300);
-        log('auth not ready, will poll to attach watcher');
-        return;
-      }
-      auth.onAuthStateChanged(onAuthChanged);
-      log('auth watcher attached (early)');
-    } catch(e){ log('installWatcher err', e); }
-  })();
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  let alreadyRedirected = false;
-  function onAuthChanged(user){
-    log('onAuthChanged ->', user && user.uid ? user.uid : user);
-    if(user && !alreadyRedirected){
-      // ensure avatar & snapshot saved before redirecting
-      (async ()=>{
-        try {
-          const u = user;
-          // if photoURL missing, create and persist
-          if(!u.photoURL){
-            const gen = persistAvatarForUser(u.uid || u.email, u.displayName || u.email);
-            // note: if you want to update Firebase user profile with photoURL, your backend or client should call updateProfile.
-            u.photoURL = gen;
-          }
-          persistAndApplySnapshot(u);
-        } catch(e){ log('onAuthChanged avatar error', e); }
-        alreadyRedirected = true;
-        showStatus('Signed in — redirecting...');
-        setTimeout(()=> goHome(), 40);
-      })();
+    // If using GitHub provider, make sure your OAuth redirect URL(s) in Firebase Console exactly match
+    // window.location.origin or the deployed origin.
+    // Example: https://yourdomain.com/  (no trailing path unless you added it in console)
+
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const githubProvider = new firebase.auth.GithubAuthProvider();
+
+    // Accessibility: show user errors in #err
+    const errEl = document.getElementById('err');
+    function showError(msg) {
+      errEl.style.display = 'block';
+      errEl.textContent = msg;
     }
-  }
+    function clearError() {
+      errEl.style.display = 'none';
+      errEl.textContent = '';
+    }
 
-  // handle redirect result when social provider returns back to this page
-  async function handleRedirectResult(){
-    try {
-      const auth = getAuth();
-      if(!auth || typeof auth.getRedirectResult !== 'function') return;
-      const res = await auth.getRedirectResult();
-      if(res && res.user){
-        log('redirect result user', res.user.uid || res.user.email);
-        // ensure snapshot + avatar then redirect will happen via onAuthChanged watcher above,
-        // but also force apply snapshot here
-        persistAndApplySnapshot(res.user);
-        // short safety: if onAuthChanged didn't run, redirect now
-        if(!alreadyRedirected){ alreadyRedirected = true; setTimeout(()=> goHome(), 60); }
-      }
-    } catch(e){ log('getRedirectResult err', e); }
-  }
-  handleRedirectResult().catch(()=>{});
-
-  // --- UI behavior: eye toggle ---
-  (function setupEye(){
-    try {
-      if(!eyeIcon || !toggleBtn || !pwdEl) return;
-      let vis = false;
-      const openSVG = '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle>';
-      const closedSVG = '<path d="M2 2l20 20"/>';
-      eyeIcon.innerHTML = openSVG;
-      toggleBtn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        vis = !vis;
-        pwdEl.type = vis ? 'text' : 'password';
-        toggleBtn.setAttribute('aria-pressed', vis ? 'true' : 'false');
-        eyeIcon.innerHTML = vis ? closedSVG : openSVG;
-      });
-    } catch(e){ log('eye setup err', e); }
-  })();
-
-  // --- close/back behaviour ---
-  if(closeBtn) closeBtn.addEventListener('click', (e)=>{
-    e.preventDefault();
-    const last = sessionStorage.getItem('mm_last_page');
-    if(last && last !== location.href){ window.location.href = last; return; }
-    if(document.referrer){ window.location.href = document.referrer; return; }
-    history.back();
-  });
-
-  // Prefill email if remembered
-  try { const last = localStorage.getItem('mm_last_email'); if(last && emailEl) emailEl.value = last; } catch(e){}
-
-  // --- form submit (email/password) ---
-  if(form){
-    form.addEventListener('submit', async (ev)=>{
-      ev.preventDefault();
-      const email = (emailEl && emailEl.value || '').trim();
-      const password = (pwdEl && pwdEl.value) || '';
-      if(!email || !password){ showStatus('Please enter email and password', true); return; }
-
-      loginBtn.disabled = true;
-      loginBtn.textContent = 'Signing in...';
-      showStatus('Signing in...');
+    // email sign in / create
+    document.getElementById('emailSignIn').addEventListener('click', async () => {
+      clearError();
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('password').value;
+      if (!email || !pass) return showError('Please enter email and password.');
 
       try {
-        const auth = getAuth();
-        if(!auth) throw new Error('Auth not initialized');
-
-        // Try wrapper first, then compat firebase
-        let credentialOrUser = null;
-        if(window.MentorAuth && typeof window.MentorAuth.signInWithEmail === 'function'){
-          credentialOrUser = await window.MentorAuth.signInWithEmail(email,password);
-        } else if(window.mentorAuth && window.mentorAuth.auth && typeof window.mentorAuth.auth.signInWithEmailAndPassword === 'function'){
-          credentialOrUser = await window.mentorAuth.auth.signInWithEmailAndPassword(email,password);
-        } else if(window.firebase && firebase.auth && typeof firebase.auth().signInWithEmailAndPassword === 'function'){
-          credentialOrUser = await firebase.auth().signInWithEmailAndPassword(email,password);
-        } else {
-          throw new Error('Auth method not available');
-        }
-
-        // If the sign-in call returned a user or credential with user, apply avatar and redirect now
-        let u = credentialOrUser && (credentialOrUser.user || credentialOrUser);
-        if(u && u.uid){
-          // ensure a photoURL exists and snapshot saved before redirect
-          if(!u.photoURL){
-            u.photoURL = persistAvatarForUser(u.uid, u.displayName || u.email || email);
+        // Try to sign in; if user doesn't exist, create account
+        await auth.signInWithEmailAndPassword(email, pass);
+        // onAuthStateChanged will redirect to index.html after login
+      } catch (err) {
+        // If user not found, attempt create
+        if (err.code === 'auth/user-not-found') {
+          try {
+            await auth.createUserWithEmailAndPassword(email, pass);
+          } catch (err2) {
+            showError(err2.message || 'Could not create account.');
           }
-          persistAndApplySnapshot(u);
-          // redirect - onAuthChanged may also redirect but we guard with 'alreadyRedirected'
-          if(!alreadyRedirected){ alreadyRedirected = true; setTimeout(()=> goHome(), 60); }
-          return;
+        } else {
+          showError(err.message || 'Authentication failed.');
         }
-
-        // otherwise rely on onAuthStateChanged watcher (which will redirect)
-        showStatus('Signed in — finishing auth...');
-        // safety fallback: after 2s force redirect
-        setTimeout(()=>{ if(!alreadyRedirected){ alreadyRedirected = true; goHome(); } }, 2000);
-
-      } catch(err){
-        log('email sign-in error', err);
-        showStatus(err?.message || 'Sign in failed', true);
-        loginBtn.disabled = false;
-        loginBtn.textContent = 'Login';
       }
     });
-  }
 
-  // --- social sign-in via redirect (reliable across browsers) ---
-  function socialRedirect(providerName){
-    try {
-      const auth = getAuth();
-      if(!auth) { alert('Auth not ready'); return; }
-      let provider = null;
-      if(providerName === 'google'){
-        provider = new firebase.auth.GoogleAuthProvider();
-      } else if(providerName === 'github'){
-        provider = new firebase.auth.GithubAuthProvider();
+    // Try popup sign-in; if popup blocked or fails, fallback to redirect flow.
+    async function signInWithProvider(provider) {
+      clearError();
+      try {
+        await auth.signInWithPopup(provider);
+        // success -> onAuthStateChanged runs and redirects
+      } catch (popupError) {
+        // Popup blocked or other popup errors — fallback to redirect
+        console.warn('Popup sign-in failed, trying redirect:', popupError && popupError.message);
+        try {
+          await auth.signInWithRedirect(provider);
+          // After redirect, user returns and onAuthStateChanged will run
+        } catch (redirectErr) {
+          showError(redirectErr.message || 'Sign-in failed.');
+        }
       }
-      // optional: provider.addScope('email');
-      if(typeof auth.signInWithRedirect === 'function'){
-        auth.signInWithRedirect(provider);
-        showStatus('Redirecting to ' + providerName + ' sign-in...');
+    }
+
+    document.getElementById('googleBtn').addEventListener('click', () => signInWithProvider(googleProvider));
+    document.getElementById('githubBtn').addEventListener('click', () => signInWithProvider(githubProvider));
+
+    // Create account link: focus email field for convenience
+   // Create account button (explicit)
+document.getElementById('emailSignUp').addEventListener('click', async () => {
+  clearError();
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('password').value;
+
+  if (!email || !pass) return showError('Please enter an email and password to create an account.');
+  if (pass.length < 6) return showError('Password must be at least 6 characters.');
+
+  try {
+    // Create the account
+    const result = await auth.createUserWithEmailAndPassword(email, pass);
+    // Optionally set displayName here if you collect a name
+    // await result.user.updateProfile({ displayName: 'User Name' });
+
+    // Account created — onAuthStateChanged will run. Show a quick success then redirect:
+    // (You may skip showing success and just redirect)
+    window.location.replace('index.html');
+  } catch (err) {
+    // Friendly messages for common errors
+    if (err && err.code) {
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          showError('An account already exists with that email. Try signing in.');
+          break;
+        case 'auth/invalid-email':
+          showError('Please enter a valid email address.');
+          break;
+        case 'auth/weak-password':
+          showError('Password is too weak. Use at least 6 characters.');
+          break;
+        default:
+          showError(err.message || 'Account creation failed.');
+      }
+    } else {
+      showError(err.message || 'Account creation failed.');
+    }
+  }
+});
+
+    // Important: onAuthStateChanged ensures stable redirect AFTER firebase finishes restoring user.
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // user signed in — ensure profile is loaded consistently
+        // Optional: you may want to save user displayName/photoURL to your DB here.
+        // Redirect to main page:
+        // NOTE: change 'index.html' to your desired post-login page.
+        window.location.replace('index.html');
       } else {
-        alert('Redirect auth not supported by this auth object');
+        // not signed in — stay on login page; nothing to do
       }
-    } catch(e){ log('socialRedirect err', e); alert('Social sign-in failed: ' + (e.message||e)); }
-  }
-  if(googleBtn) googleBtn.addEventListener('click', (e)=>{ e.preventDefault(); socialRedirect('google'); });
-  if(githubBtn) githubBtn.addEventListener('click', (e)=>{ e.preventDefault(); socialRedirect('github'); });
+    });
 
-  // Final probe: if auth loads late, ensure watcher and getRedirectResult are attempted
-  setTimeout(()=>{ handleRedirectResult().catch(()=>{}); }, 700);
-  setTimeout(()=>{ handleRedirectResult().catch(()=>{}); }, 1600);
-
-})();
-</script>
-
-
+    // When returning from redirect sign-in, call getRedirectResult to surface errors if needed.
+    (async function handleRedirectResult() {
+      try {
+        const result = await auth.getRedirectResult();
+        // If result.user exists, onAuthStateChanged already handles redirect.
+        if (result && result.user) {
+          // optionally handle result.credential.accessToken for GitHub/Google
+        }
+      } catch (e) {
+        // show redirect sign-in errors (e.g. redirect_uri mismatch shows here)
+        // Mismatch errors mean you must update the Authorized domains / redirect URI in Firebase console.
+        if (e && e.message) {
+          console.warn('Redirect result error:', e.message);
+          // show to user but keep it friendly:
+          showError(e.message);
+        }
+      }
+    })();
+  </script>
 </body>
+
 </html>

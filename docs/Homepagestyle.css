@@ -301,10 +301,13 @@ display: flex;
   background: #a17df5;
   border: 1px solid #000000;
   color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .signout:hover {
-  background: #8d60f5;
+  background: #000000;
+  color: #a17df5;
+  border: 1px solid #a17df5;
 }
 
 .login-link {

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile — The Mentor Minds</title>
+  <link rel="stylesheet" href="Profile.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="header">
+    <div class="center-content">
+      <a href="index.html" class="mindshome">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="209" height="190"
+            viewBox="0 0 209 190">
+            <image
+              xlink:href="data:image/png;base64,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"
+              x="0" y="0" width="209" height="190" />
+          </svg>
+          <span>THE MENTOR MINDS</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <div class="search-bar">
+        <button type="button" class="search-button">
+          <i class="search-icon">
+            <img
+              src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-magnifying-glass-white-icon.svg"
+              alt="Search Icon" />
+          </i>
+        </button>
+        <input type="text" placeholder="Search..." aria-label="Search the site" />
+      </div>
+
+
+                  <!-- REPLACE your old login block with this (keep it in the same navbar place) -->
+            <div id="accountContainer" class="nav-account" style="margin-left:10px; display:flex; align-items:center;">
+            <a id="loginLink" href="Loginpage.html" class="login-link" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:#A78BFA;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#A78BFA" />
+                <circle cx="12" cy="10" r="3" fill="#000" />
+                <path d="M12 14c-3.5 0-6 2-6 4v1h12v-1c0-2-2.5-4-6-4z" fill="#000" />
+                </svg>
+                Log In
+            </a>
+
+            <!-- USER PANEL (FULL CLICKABLE AREA + DROPDOWN) -->
+            <div id="userPanel" class="user-panel" aria-live="polite" style="display:none; position:relative;">
+            
+            <!-- Entire button is clickable -->
+            <button id="userToggle" class="user-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="userMenu">
+                <img id="userAvatar" class="user-avatar" 
+                    src="" alt="User avatar">
+
+                <span class="user-labels">
+                <span id="userName" class="user-name">User</span>
+                </span>
+
+                <svg class="chev" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#fff" d="M7 10l5 5 5-5z"/>
+                </svg>
+            </button>
+
+            <!-- DROPDOWN -->
+            <div id="userMenu" class="user-menu" role="menu" aria-hidden="true" tabindex="-1">
+
+                <div class="user-info">
+                <img class="user-menu-avatar" 
+                    src="" alt="">
+                <div class="user-meta">
+                    <div id="menuName" class="menu-name">Display Name</div>
+                    <div id="menuEmail" class="menu-email">email@example.com</div>
+                </div>
+                </div>
+
+                <hr class="menu-sep" color="#a17df5">
+
+                <a href="Profile.html" class="menu-item" role="menuitem">Profile</a>
+                <a href="Settings.html" class="menu-item" role="menuitem">Settings</a>
+                <a href="Dashboard.html" class="menu-item" role="menuitem">Dashboard</a>
+
+                <hr class="menu-sep" color="#a17df5">
+
+                <button id="menuSignOut" class="menu-item signout" role="menuitem">Sign out</button>
+            </div>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+     <div class="nav-menu">
+        <a id="cse" href="CSE.html">CSE</a>
+        <a id="it" href="IT.html">IT</a>
+        <a id="bca" href="BCA.html">BCA</a>
+        <a id="mca" href="MCA.html">MCA</a>
+        <a id="pyqs" href="Pyqs.html">Question Papers</a>
+        <a id="prac" href="Practicals.html">Practicals</a>
+    </div>
+
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Your Profile</h1>
+    <p>Manage your public profile and account settings. Update display name.</p>
+  </section>
+
+  <!-- Main content -->
+  <main class="container">
+    <div class="profile-grid" style="border:2px solid white; border-radius: 10px;  background: #1e1e1e;">
+      <!-- left column: profile summary -->
+      <aside class="card profile-card">
+        <img id="bigAvatar" class="big-avatar" src="" alt="Avatar">
+        <h2 id="bigName">User</h2>
+        <p class="email" id="bigEmail">email@example.com</p>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:12px;">
+          <button id="editProfile" class="edit-btn">Edit Profile</button>
+          <button id="signoutInline" class="signout" style="background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.06)">Sign out</button>
+        </div>
+
+        <div style="margin-top:18px; color:var(--muted); font-size:14px;">
+          <strong>Account</strong>
+          <ul style="padding-left:16px; margin-top:10px; color:var(--muted);">
+            <li id="providerList">Signed in with: —</li>
+            <li id="createdAt">Member since: —</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- right column: edit form (NO bio, NO photo URL) -->
+      <section class="card profile-form" id="profileFormCard" aria-live="polite">
+        <h3 style="margin-top:0">Edit Profile</h3>
+
+        <label for="displayName">Display name</label>
+        <input id="displayName" type="text" placeholder="Your display name">
+
+        <button id="saveProfile" class="save-btn"
+  style="
+    background-color: #a17df5;
+    color: #121212;
+    padding: 10px 20px;
+    border: 1px solid #a17df5;
+    border-radius: 0px;
+    cursor: pointer;
+  "
+  onclick="this.style.backgroundColor='#7135ff'">
+  Save changes
+</button>
+
+        <div id="profileMsg" style="margin-top:12px; color:var(--muted)"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs & init (must be present and initialize firebase) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="/firebase-auth.js"></script>
+
+  <!-- ZERO-FLICKER: wait for firebase auth and reveal navbar only after onAuthStateChanged -->
+  <script>
+  (function(){
+    const container = document.getElementById('accountContainer');
+    if (!container) return;
+
+    function genInitialsDataUrl(name, size=128){
+      const initials = (name||'').trim().split(' ').map(s=>s.charAt(0)).filter(Boolean).slice(0,2).join('').toUpperCase() || 'U';
+      try{
+        const c=document.createElement('canvas'); c.width=c.height=size;
+        const ctx=c.getContext('2d');
+        ctx.fillStyle='#e6e9ef'; ctx.fillRect(0,0,size,size);
+        ctx.fillStyle='#111827'; ctx.font = Math.floor(size*0.45)+'px sans-serif';
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(initials,size/2,size/2 + size*0.03);
+        return c.toDataURL();
+      }catch(e){ return ''; }
+    }
+
+    function applyUserToDom(user){
+      const loginLink = document.getElementById('loginLink');
+      const userPanel = document.getElementById('userPanel');
+      const avatar = document.getElementById('userAvatar');
+      const menuAvatar = document.querySelector('.user-menu-avatar');
+      const bigAvatar = document.getElementById('bigAvatar');
+      const userName = document.getElementById('userName');
+      const bigName = document.getElementById('bigName');
+      const bigEmail = document.getElementById('bigEmail');
+      const menuName = document.getElementById('menuName');
+      const menuEmail = document.getElementById('menuEmail');
+      const providerList = document.getElementById('providerList');
+      const createdAt = document.getElementById('createdAt');
+
+      if (!user) {
+        if (loginLink) loginLink.style.display = 'flex';
+        if (userPanel) userPanel.style.display = 'none';
+        if (bigName) bigName.textContent = 'Guest';
+        if (bigEmail) bigEmail.textContent = '';
+        return;
+      }
+
+      if (loginLink) loginLink.style.display = 'none';
+      if (userPanel) userPanel.style.display = 'flex';
+
+      const name = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
+      const email = user.email || '';
+      const photo = user.photoURL || '';
+      const fallback = genInitialsDataUrl(name);
+      const finalSrc = photo || fallback;
+
+      if (avatar) avatar.src = finalSrc;
+      if (menuAvatar) menuAvatar.src = finalSrc;
+      if (bigAvatar) bigAvatar.src = finalSrc;
+      if (userName) userName.textContent = name;
+      if (bigName) bigName.textContent = name;
+      if (bigEmail) bigEmail.textContent = email;
+      if (menuName) menuName.textContent = name;
+      if (menuEmail) menuEmail.textContent = email;
+
+      try {
+        const provs = (user.providerData || []).map(p=>p.providerId).join(', ') || 'email/password';
+        if (providerList) providerList.textContent = 'Signed in with: ' + provs;
+      } catch(e){}
+
+      try {
+        const meta = user.metadata || {};
+        if (meta && meta.creationTime && createdAt) createdAt.textContent = 'Member since: ' + (new Date(meta.creationTime)).toLocaleDateString();
+      } catch(e){}
+    }
+
+    function revealAndApply(reason){
+      if (container.classList.contains('hide-until-auth')) container.classList.remove('hide-until-auth');
+      try {
+        Object.defineProperty(container.style, 'visibility', { configurable:false, writable:false, value: getComputedStyle(container).visibility || ''});
+      } catch(e){}
+      console.log('[auth-reveal] revealed, reason=',reason);
+    }
+
+    function attachAuthListener(){
+      if (!window.firebase || !firebase.auth) return false;
+      const unsub = firebase.auth().onAuthStateChanged(user=>{
+        applyUserToDom(user);
+        revealAndApply('onAuthStateChanged');
+        try{ if (typeof unsub === 'function') unsub(); } catch(e){}
+      }, err=>{
+        console.warn('onAuthStateChanged error', err);
+        revealAndApply('error');
+        try{ if (typeof unsub === 'function') unsub(); } catch(e){}
+      });
+      return true;
+    }
+
+    if (!attachAuthListener()) {
+      let tries=0;
+      const iv = setInterval(()=>{
+        if (attachAuthListener()){ clearInterval(iv); return; }
+        if (++tries > 40){ clearInterval(iv); console.warn('[auth-reveal] firebase not available — revealing anyway'); revealAndApply('timeout'); }
+      }, 50);
+    }
+
+    setTimeout(()=> {
+      if (container.classList.contains('hide-until-auth')) {
+        revealAndApply('safety-timeout');
+      }
+    }, 1500);
+  })();
+  </script>
+
+  <!-- Account/dropdown behavior + profile save (displayName only) -->
+  <script>
+  (function(){
+    const userToggle = document.getElementById('userToggle');
+    const userMenu = document.getElementById('userMenu');
+    const userPanel = document.getElementById('userPanel');
+    if (userToggle && userMenu && userPanel) {
+      function openMenu(){ userMenu.classList.add('open'); userMenu.setAttribute('aria-hidden','false'); userToggle.setAttribute('aria-expanded','true'); const first = userMenu.querySelector('a,button'); if(first) first.focus(); }
+      function closeMenu(){ userMenu.classList.remove('open'); userMenu.setAttribute('aria-hidden','true'); userToggle.setAttribute('aria-expanded','false'); try{ userToggle.focus(); }catch(e){} }
+
+      const captureGuard = (ev)=>{ if (userPanel.contains(ev.target)) ev.stopImmediatePropagation(); };
+      document.addEventListener('pointerdown', captureGuard, true);
+      document.addEventListener('click', captureGuard, true);
+
+      userToggle.addEventListener('pointerup', (ev)=>{ ev.preventDefault(); ev.stopPropagation(); if (userMenu.classList.contains('open')) closeMenu(); else openMenu(); }, {passive:false});
+      userToggle.addEventListener('click', (ev)=>{ ev.preventDefault(); ev.stopPropagation(); if (userMenu.classList.contains('open')) closeMenu(); else openMenu(); }, {passive:false});
+
+      document.addEventListener('pointerdown', (ev)=>{ if (userPanel.contains(ev.target)) return; if (userMenu.classList.contains('open')) closeMenu(); }, {passive:true});
+    }
+
+    // Sign out handling
+    async function signoutHandler(){
+      try {
+        await firebase.auth().signOut();
+        window.location.replace('index.html');
+      } catch(e){ console.error('Sign out failed', e); alert('Sign out failed: ' + (e && e.message)); }
+    }
+    const menuSignOut = document.getElementById('menuSignOut');
+    if (menuSignOut) menuSignOut.addEventListener('click', signoutHandler);
+    const signoutInline = document.getElementById('signoutInline');
+    if (signoutInline) signoutInline.addEventListener('click', signoutHandler);
+    const inlineAlt = document.querySelector('.profile-card .signout');
+    if (inlineAlt) inlineAlt.addEventListener('click', signoutHandler);
+
+    // populate input from currentUser
+    function populateEditFields(){
+      try {
+        const u = firebase.auth().currentUser;
+        if (!u) return;
+        document.getElementById('displayName').value = u.displayName || '';
+      } catch(e){}
+    }
+
+    // apply updated displayName/avatar to DOM
+    function applyUpdatedProfileToDOM(user){
+      if (!user) return;
+      const name = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
+      const photo = user.photoURL || '';
+      // generate fallback initials if needed
+      function genInitialsDataUrl(name, size=128){
+        const initials = (name||'').trim().split(' ').map(s=>s.charAt(0)).filter(Boolean).slice(0,2).join('').toUpperCase() || 'U';
+        try{
+          const c=document.createElement('canvas'); c.width=c.height=size;
+          const ctx=c.getContext('2d');
+          ctx.fillStyle='#e6e9ef'; ctx.fillRect(0,0,size,size);
+          ctx.fillStyle='#111827'; ctx.font = Math.floor(size*0.45)+'px sans-serif';
+          ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillText(initials,size/2,size/2 + size*0.03);
+          return c.toDataURL();
+        }catch(e){ return ''; }
+      }
+      const fallback = genInitialsDataUrl(name);
+      const final = photo || fallback;
+
+      try{ document.getElementById('bigAvatar').src = final; }catch(e){}
+      try{ document.getElementById('userAvatar').src = final; }catch(e){}
+      try{ document.querySelector('.user-menu-avatar').src = final; }catch(e){}
+      try{ document.getElementById('bigName').textContent = name; }catch(e){}
+      try{ document.getElementById('userName').textContent = name; }catch(e){}
+      try{ document.getElementById('menuName').textContent = name; }catch(e){}
+    }
+
+    // Edit button: scroll + focus
+    const editBtn = document.getElementById('editProfile');
+    if (editBtn) editBtn.addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      const formCard = document.getElementById('profileFormCard');
+      if (formCard) {
+        formCard.scrollIntoView({behavior:'smooth', block:'center'});
+        setTimeout(()=> { const input = document.getElementById('displayName'); input.focus(); input.select(); }, 320);
+      }
+    });
+
+    // Save handler (displayName only)
+    document.getElementById('saveProfile').addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      const msg = document.getElementById('profileMsg');
+      msg.textContent = ''; msg.style.color = 'var(--muted)';
+      try {
+        const user = firebase.auth().currentUser;
+        if (!user) throw new Error('Not signed in');
+        const name = document.getElementById('displayName').value.trim();
+        if (!name) { msg.style.color = '#ffbaba'; msg.textContent = 'Please provide a display name.'; document.getElementById('displayName').focus(); return; }
+
+        // only update displayName (photo editing intentionally disabled)
+        if (name !== (user.displayName || '')) {
+          await user.updateProfile({ displayName: name });
+        }
+
+        // refresh local user object (compat updates currentUser)
+        const refreshed = firebase.auth().currentUser;
+        applyUpdatedProfileToDOM(refreshed);
+
+        msg.style.color = '#b7f5c6';
+        msg.textContent = 'Profile updated successfully.';
+      } catch (e) {
+        console.error('Update failed', e);
+        if (e && e.code === 'auth/requires-recent-login') {
+          document.getElementById('profileMsg').style.color = '#ffbaba';
+          document.getElementById('profileMsg').textContent = 'Update failed: please re-login and try again.';
+        } else {
+          document.getElementById('profileMsg').style.color = '#ffbaba';
+          document.getElementById('profileMsg').textContent = 'Update failed: ' + (e && e.message ? e.message : 'unknown error');
+        }
+      }
+    });
+
+    // hook populate once auth ready
+    try {
+      if (window.firebase && firebase.auth) {
+        if (firebase.auth().currentUser) populateEditFields();
+        firebase.auth().onAuthStateChanged(u=> { if (u) populateEditFields(); });
+      } else {
+        // retry a few times if firebase not ready yet
+        let t = 0;
+        const iv = setInterval(()=>{
+          if (window.firebase && firebase.auth) {
+            clearInterval(iv);
+            if (firebase.auth().currentUser) populateEditFields();
+            firebase.auth().onAuthStateChanged(u=> { if (u) populateEditFields(); });
+          }
+          if (++t > 40) clearInterval(iv);
+        }, 50);
+      }
+    } catch(e){ console.warn(e); }
+
+  })();
+  </script>
+</body>
+</html>

@@ -45,17 +45,62 @@
                 <input type="text" placeholder="Search..." aria-label="Search the site" />
             </div>
 
-            <div class="login" style="margin-left: 10px; display: block">
-                <a href="Loginpage.html" class="login-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 24 24" fill="none"
-                        stroke="none" stroke-width="0" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" fill="#A78BFA" />
-                        <circle cx="12" cy="10" r="3" fill="#000" />
-                        <path d="M12 14c-3.5 0-6 2-6 4v1h12v-1c0-2-2.5-4-6-4z" fill="#000" />
-                    </svg>
-                    Log In
-                </a>
+                        <!-- REPLACE your old login block with this (keep it in the same navbar place) -->
+            <div id="accountContainer" class="nav-account" style="margin-left:10px; display:flex; align-items:center;">
+            <a id="loginLink" href="Loginpage.html" class="login-link" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:#A78BFA;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#A78BFA" />
+                <circle cx="12" cy="10" r="3" fill="#000" />
+                <path d="M12 14c-3.5 0-6 2-6 4v1h12v-1c0-2-2.5-4-6-4z" fill="#000" />
+                </svg>
+                Log In
+            </a>
+
+            <!-- USER PANEL (FULL CLICKABLE AREA + DROPDOWN) -->
+            <div id="userPanel" class="user-panel" aria-live="polite" style="display:none; position:relative;">
+            
+            <!-- Entire button is clickable -->
+            <button id="userToggle" class="user-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="userMenu">
+                <img id="userAvatar" class="user-avatar" 
+                    src="" alt="User avatar">
+
+                <span class="user-labels">
+                <span id="userName" class="user-name">User</span>
+                </span>
+
+                <svg class="chev" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#fff" d="M7 10l5 5 5-5z"/>
+                </svg>
+            </button>
+
+            <!-- DROPDOWN -->
+            <div id="userMenu" class="user-menu" role="menu" aria-hidden="true" tabindex="-1">
+
+                <div class="user-info">
+                <img class="user-menu-avatar" 
+                    src="" alt="">
+                <div class="user-meta">
+                    <div id="menuName" class="menu-name">Display Name</div>
+                    <div id="menuEmail" class="menu-email">email@example.com</div>
+                </div>
+                </div>
+
+                <hr class="menu-sep" color="#a17df5">
+
+                <a href="Profile.html" class="menu-item" role="menuitem">Profile</a>
+                <a href="Settings.html" class="menu-item" role="menuitem">Settings</a>
+                <a href="Dashboard.html" class="menu-item" role="menuitem">Dashboard</a>
+
+                <hr class="menu-sep" color="#a17df5">
+
+                <button id="menuSignOut" class="menu-item signout" role="menuitem">Sign out</button>
             </div>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
         </div>
     </div>
     <div class="nav-menu">
@@ -912,6 +957,98 @@
             </div>
         </div>
     </footer>
+    
+
+<!-- 1) Firebase compat SDKs (ONLY once on the page) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<!-- 2) Your initializer that calls firebase.initializeApp(...) -->
+<script src="/firebase-auth.js"></script>
+
+<!-- 3) Your app scripts that rely on firebase -->
+      <!-- put on login page only if it contains login buttons -->
+<script src="/account-ui.js"></script>
+<script src="/header-dropdown-final.js"></script>
+
+
+<script>
+(function(){
+  // small safety fallback — if Firebase currentUser already exists, force navbar update
+  function applyUserToNavbar(u) {
+    if (!u) return;
+    const loginLink = document.getElementById('loginLink');
+    const userPanel = document.getElementById('userPanel');
+    const userAvatar = document.getElementById('userAvatar');
+    const userName = document.getElementById('userName');
+    if (loginLink) loginLink.style.display = 'none';
+    if (userPanel) userPanel.style.display = 'flex';
+    if (userAvatar) userAvatar.src = u.photoURL || '';
+    if (userName) userName.textContent = u.displayName || u.email || 'User';
+  }
+
+  try {
+    if (window.firebase && firebase.auth && firebase.auth().currentUser) {
+      applyUserToNavbar(firebase.auth().currentUser);
+    } else {
+      setTimeout(() => { 
+        if (window.firebase && firebase.auth && firebase.auth().currentUser)
+            applyUserToNavbar(firebase.auth().currentUser);
+      }, 500);
+    }
+  } catch(e){ console.warn('safety navbar update failed', e); }
+})();
+</script>
+<script>
+(function(){
+  // Runs AFTER DOM and AFTER firebase + mentorAuth exist
+  function waitForFirebaseReady(fn){
+    const iv = setInterval(()=>{
+      if (window.firebase && firebase.auth && window.mentorAuth && mentorAuth.auth){
+        clearInterval(iv);
+        fn();
+      }
+    }, 50);
+  }
+
+  waitForFirebaseReady(()=>{
+    console.log("[Navbar] Firebase ready");
+
+    firebase.auth().onAuthStateChanged((user)=>{
+      console.log("[Navbar] onAuthStateChanged ->", user && user.email);
+
+      const loginLink = document.getElementById("loginLink");
+      const userPanel  = document.getElementById("userPanel");
+      const avatar     = document.getElementById("userAvatar");
+      const userName   = document.getElementById("userName");
+      const menuName   = document.getElementById("menuName");
+      const menuEmail  = document.getElementById("menuEmail");
+
+      if (!user) {
+        if (loginLink)  loginLink.style.display = "flex";
+        if (userPanel)  userPanel.style.display = "none";
+        return;
+      }
+
+      // USER IS LOGGED IN → show dropdown
+      if (loginLink) loginLink.style.display = "none";
+      if (userPanel) userPanel.style.display = "flex";
+
+      const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
+      const email = user.email || "";
+      const photo = user.photoURL || "";
+
+      if (avatar) avatar.src = photo;
+      if (userName) userName.textContent = name;
+      if (menuName) menuName.textContent = name;
+      if (menuEmail) menuEmail.textContent = email;
+
+      // open menu only if you want:
+      // document.getElementById("userMenu").classList.add("open");
+    });
+  });
+})();
+</script>
 </body>
 
 </html>
